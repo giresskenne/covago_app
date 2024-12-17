@@ -1,76 +1,91 @@
 <?php
- session_start();
-$array=array("email"=>"","phoneNumber"=>"","passwordUser"=>"","emailError"=>"","phoneNumberError"=>"","passwordUserError"=>"","isSuccess"=>false);
-function verifyInput($var){
-    $var=trim($var);
-    $var=stripslashes($var);
-    $var=htmlspecialchars($var);
+$array = array(
+    "email" => "",
+    "phoneNumber" => "",
+    "passwordUser" => "",
+    "emailError" => "",
+    "phoneNumberError" => "",
+    "passwordUserError" => "",
+    "isSuccess" => false
+);
+
+function verifyInput($var) {
+    $var = trim($var);
+    $var = stripslashes($var);
+    $var = htmlspecialchars($var);
     return $var;
-} 
+}
 
-function isEmail($var){
-
+function isEmail($var) {
     return filter_var($var, FILTER_VALIDATE_EMAIL);
 }
-function isPhone($var){
 
-    return preg_match(" ");
-}
-if($_SERVER["REQUEST_METHOD"]=="POST"){
-$array["email"]=verifyInput($_POST["email"]);
-$array["phoneNumber"]=verifyInput($_POST["phoneNumber"]);
-$array["passwordUser"]=sha1($_POST["passwordUser"]);
-$array["isSuccess"]=true;
-$numberTaille=strlen($array["phoneNumber"]);
-$pwdTaille=strlen($_POST["passwordUser"]);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $array["email"] = verifyInput($_POST["email"]);
+    $array["phoneNumber"] = verifyInput($_POST["phoneNumber"]);
+    $array["passwordUser"] = sha1($_POST["passwordUser"]); // Hash the password
+    $array["isSuccess"] = true;
+    $numberTaille = strlen($array["phoneNumber"]);
+    $pwdTaille = strlen($_POST["passwordUser"]);
 
-if($numberTaille<>9){
-$array["phoneNumberError"]="Vueillez entrer un numero de telephone à 9 chiffres";
- $array["isSuccess"]=false;   
-}
-if($pwdTaille < 8){
-$array["passwordUserError"]="Vueillez entrer un mot de passe avec au moins 8 caractères";
-$array["isSuccess"]=false;
-}
-$email=$array["email"];
-    $phoneNumber=$array["phoneNumber"];
-    $pwd=$array["passwordUser"];
-include('Models/db.php'); 
-$bdd=getBdd();
-$request=$bdd->prepare('SELECT * FROM users');
-$request->execute(array());
-while($data=$request->fetch()){
-    if($array["email"]==$data["email"]){
-       $array["emailError"]="Ce nom d'utilisateur  est deja utilisé vueillez renseignez un autre";
-       $array["isSuccess"]=false;
-    }  
-}
-  if($array["isSuccess"]==true){    
-       $req = $bdd->prepare('INSERT INTO users(email, phoneNumber,
-        password) VALUES(:email,
-        :phoneNumber, :password)');
+    // Validate phone number length
+    if ($numberTaille != 9) {
+        $array["phoneNumberError"] = "Veuillez entrer un numéro de téléphone à 9 chiffres";
+        $array["isSuccess"] = false;
+    }
+
+    // Validate password length
+    if ($pwdTaille < 8) {
+        $array["passwordUserError"] = "Veuillez entrer un mot de passe avec au moins 8 caractères";
+        $array["isSuccess"] = false;
+    }
+
+    $email = $array["email"];
+    $phoneNumber = $array["phoneNumber"];
+    $pwd = $array["passwordUser"];
+
+    include('Models/db.php');
+    $bdd = getBdd();
+
+    // Check if the phone number already exists
+    $request = $bdd->prepare('SELECT * FROM users WHERE phoneNumber = :phoneNumber');
+    $request->execute(['phoneNumber' => $phoneNumber]);
+    if ($request->fetch()) {
+        $array["phoneNumberError"] = "Ce numéro de téléphone est déjà enregistré.";
+        $array["isSuccess"] = false;
+    }
+
+    // Check if the email already exists
+    $request = $bdd->prepare('SELECT * FROM users WHERE email = :email');
+    $request->execute(['email' => $email]);
+    if ($request->fetch()) {
+        $array["emailError"] = "Ce nom d'utilisateur est déjà utilisé. Veuillez renseigner un autre.";
+        $array["isSuccess"] = false;
+    }
+
+    // If validation passes, insert the user into the database
+    if ($array["isSuccess"] == true) {
+        $req = $bdd->prepare('INSERT INTO users(email, phoneNumber, password) VALUES(:email, :phoneNumber, :password)');
         $req->execute(array(
-        'email' => $email,
-        'phoneNumber' => $phoneNumber,
-        'password' =>$pwd,
+            'email' => $email,
+            'phoneNumber' => $phoneNumber,
+            'password' => $pwd,
         ));
-        $message= "Votre compte a bien été créer";
-        $_SESSION["email"]=$email;
-        $_SESSION["phoneNumber"]=$phoneNumber;
-        $emailS= $_SESSION["email"];
-        $phoneNumberS=$_SESSION["phoneNumber"];
-      header('Location:index.php?page=publier&&message='.$message.'&&email='.$emailS);
+
+        // Store session variables
+        session_start();
+        $_SESSION["email"] = $email;
+        $_SESSION["phoneNumber"] = $phoneNumber;
+
+        // Redirect to the user's account home page
+        header('Location: index.php?page=accueil');
+        exit;
+    } else {
+        // Redirect back to the registration form with errors
+        header('Location: index.php?page=registration&emailError=' . urlencode($array["emailError"]) .
+            '&phoneNumberError=' . urlencode($array["phoneNumberError"]) .
+            '&passwordUserError=' . urlencode($array["passwordUserError"]));
+        exit;
     }
-    else{
-       header('Location:index.php?page=registration&&emailError='.$array["emailError"].'&&phoneNumberError='.$array["phoneNumberError"].'&&passwordUserError='.$array["passwordUserError"]);
-    }
-    echo json_encode($array["emailError"]);
 }
-
-        
-    
-    
-
-
-
 ?>

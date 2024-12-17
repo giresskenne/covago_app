@@ -49,39 +49,76 @@
 
         <!-- MultiStep Form -->
  
-<div class="container-fluid" id="grad1">
+        <div class="container-fluid" id="grad1">
     <div class="row justify-content-center mt-0">
         <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
             <div class="card px-0 pt-4 pb-0 mt-3 mb-3"> 
-                <h2><strong>Creer un compte</strong></h2>
-                <p style="color:red"><i>vueillez remplir tous les champs s'il vous plait!</i></p>
+                <h2><strong>Créer un compte</strong></h2>
+                <p style="color:red"><i>Veuillez remplir tous les champs s'il vous plaît!</i></p>
                 <div class="row">
-                    <div class="col-md-12 mx-0"><p style="color:"><?php if(!empty($_GET["message"])) echo $_GET["message"]; ?> <a style="color:#7de957" href="index.php?page=profil"></a></p>
+                    <div class="col-md-12 mx-0">
+                        <p style="color:"><?php if (!empty($_GET["message"])) echo $_GET["message"]; ?> 
+                            <a style="color:#7de957" href="index.php?page=profil"></a>
+                        </p>
                         <form id="msform" method="POST" action="index.php?page=registrationProcess">
-                            <!-- progressbar -->
-                            
-                            <!-- fieldsets --> 
                             <fieldset>
                                 <div class="form-card">
-     
-                        <input  name="email"  type="text" id="email"  value="" placeholder="Entrez votre nom d'utilisateur" required/> 
-                        <i><p class="coments" style="color:red"><?php if(!empty($_GET["emailError"])) echo $_GET["emailError"]; ?></p></i>
-                        <input  name="phoneNumber" id="numero" type="number"   placeholder="Entrez le numero de telephone" required>
-                        <i><p class="coments" style="color:red"><?php if(!empty($_GET["phoneNumberError"])) echo $_GET["phoneNumberError"]; ?></p></i>
-                        <input  name="passwordUser" id="pwd" type="password"  required placeholder="Entrez le mot de passe" >
-                        <i><p class="coments" style="color:red"><?php if(!empty($_GET["passwordUserError"])) echo $_GET["passwordUserError"]; ?></p></i>
-                        <div class="custom-control custom-control-alternative custom-checkbox">
-                        <input class="custom-control-input" id="customCheckRegister" type="checkbox" required>
-                        <label class="custom-control-label" for="customCheckRegister"><span>J'ai lu et accepte  <a href="index.php?page=Cgu" class=" text text-info">les conditions generales d'utilisations du site</a></span></label>
-                      </div></br></br>
-                        <input type="submit" name="next" id ="Soumettre"  value="S'inscrire" 
-                        style="width:100%;height:50px;background:#7de957;font-size:20px;line-height:1;
-                                       text-align:center;color:#fff;display:block;padding:15px;border-radius:0px;
-                                       text-transform:capitalize;" />  
-                        <center><a href="index.php?page=connexion" 
-                                style="color:#38B6FF;margin-left:30px;">Se connecter</a></center>
-                    </div>
-                                
+                                    <!-- Email Field -->
+                                    <input name="email" type="text" id="email" value="" 
+                                        placeholder="Exemple: utilisateur@email.com" required />
+                                    <i>
+                                        <p class="coments" style="color:red">
+                                            <?php if (!empty($_GET["emailError"])) echo $_GET["emailError"]; ?>
+                                        </p>
+                                    </i>
+                                    
+                                    <!-- Phone Number Field -->
+                                    <input name="phoneNumber" id="numero" type="number" 
+                                        placeholder="Exemple: 612345678" required>
+                                    <i>
+                                        <p class="coments" style="color:red">
+                                            <?php if (!empty($_GET["phoneNumberError"])) echo $_GET["phoneNumberError"]; ?>
+                                        </p>
+                                    </i>
+                                    
+                                    <!-- Password Field -->
+                                    <input name="passwordUser" id="pwd" type="password" 
+                                        placeholder="Entrez un mot de passe (min. 8 caractères)" required>
+                                    <i>
+                                        <p class="coments" style="color:red">
+                                            <?php if (!empty($_GET["passwordUserError"])) echo $_GET["passwordUserError"]; ?>
+                                        </p>
+                                    </i>
+                                    
+                                    <!-- Password Confirmation Field -->
+                                    <input name="passwordConfirm" id="pwdConfirm" type="password" 
+                                        placeholder="Confirmez votre mot de passe" required>
+                                    <i>
+                                        <p class="coments" style="color:red" id="passwordConfirmError"></p>
+                                    </i>
+
+                                    <!-- Terms and Conditions -->
+                                    <div class="custom-control custom-control-alternative custom-checkbox">
+                                        <input class="custom-control-input" id="customCheckRegister" type="checkbox" required>
+                                        <label class="custom-control-label" for="customCheckRegister">
+                                            <span>J'ai lu et accepte  
+                                                <a href="index.php?page=Cgu" class="text text-info">
+                                                    les conditions générales d'utilisation du site
+                                                </a>
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <br><br>
+
+                                    <!-- Submit Button -->
+                                    <input type="submit" name="next" id="Soumettre" value="S'inscrire" 
+                                        style="width:100%;height:50px;background:#7de957;font-size:20px;line-height:1;
+                                        text-align:center;color:#fff;display:block;padding:15px;border-radius:0px;
+                                        text-transform:capitalize;" />  
+                                    <center>
+                                        <a href="index.php?page=connexion" style="color:#38B6FF;margin-left:30px;">Se connecter</a>
+                                    </center>
+                                </div>
                             </fieldset>
                         </form>
                     </div>
@@ -90,6 +127,21 @@
         </div>
     </div>
 </div>
-    </body>
-    
-    </html>
+
+<script>
+    document.getElementById('msform').addEventListener('submit', function(event) {
+        const password = document.getElementById('pwd').value;
+        const passwordConfirm = document.getElementById('pwdConfirm').value;
+
+        // Clear any existing error
+        const errorElement = document.getElementById('passwordConfirmError');
+        errorElement.textContent = '';
+
+        // Check if passwords match
+        if (password !== passwordConfirm) {
+            errorElement.textContent = 'Les mots de passe ne correspondent pas!';
+            event.preventDefault(); // Stop form submission
+        }
+    });
+</script>
+

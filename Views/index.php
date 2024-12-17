@@ -1,71 +1,155 @@
 <!doctype html>
 <html class="no-js" lang="zxx">
 <?php include('header.php'); ?>
-    <main>
+<style>
+    .vehicle-image {
+        width: 100%;
+        height: auto;
+        max-width: 80px;
+        max-height: 80px;
+    }
 
-        <!-- slider Area Start-->
-        <div class="slider-area " style="">
-            <!-- Mobile Menu -->
-            <div class="slider-active">
-                <div class="single-slider slider-height d-flex align-items-center" data-background="assets/img/hero/istockphoto-492310846-612x612.jpg">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-xl-6 col-lg-9 col-md-10">
-                                <div class="hero__caption">
-                                    <h2 style="color:white">Retrouvez des vehicules personnels pour vos voyages ou que vous 
-                                        soyez c'est simple  dites:</h2></br>
-                                </div>
+    /* Suggestions box styling */
+    .suggestions {
+        position: absolute;
+        z-index: 9999;
+        background: #fff;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        max-height: 150px;
+        overflow-y: auto;
+        width: 100%; /* Match the width of the input field */
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        display: none;
+    }
+
+    .suggestions div {
+        padding: 8px;
+        cursor: pointer;
+    }
+
+    .suggestions div:hover {
+        background-color: #f0f0f0;
+    }
+
+    /* Ensure input fields align well within their container */
+    .select-itms input {
+        width: 100%;
+        max-width: 400px;
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-shadow: none;
+    }
+
+    .select-form {
+        margin-bottom: 10px; /* Add space below each input field */
+    }
+
+    .search-form {
+        margin-top: 10px; /* Add space above the "Chercher" button */
+    }
+
+/* Flex container for aligning items horizontally */
+.form-container {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Adjust the gap between elements as needed */
+}
+
+/* Ensure input fields and button take full available space */
+.select-itms input,
+.search-form input {
+    flex: 1; /* Make them take equal space */
+    width: 100%; /* Ensure full width */
+    max-width: 100%; /* Ensure max width matches container */
+    padding: 15px; /* Ensure consistent padding */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: none;
+}
+
+/* Button styling */
+.button1 {
+    background: #38B6FF;
+    font-size: 20px;
+    line-height: 1;
+    text-align: center;
+    color: #fff;
+    display: block;
+    padding: 10px;
+    border-radius: 4px;
+    text-transform: capitalize;
+    border: 0px #38B6FF;
+    font-family: 'Muli', sans-serif;
+    letter-spacing: 0.1em;
+    line-height: 1.2;
+    height: 58px; /* Match input height for better alignment */
+    width: 100%; /* Ensure full width */
+}
+
+/* Remove margin from search form to align properly */
+.search-form {
+    flex: 1;
+    margin-top: 0; /* Remove top margin */
+}
+
+</style>
+<main>
+
+    <!-- slider Area Start-->
+    <div class="slider-area">
+        <!-- Mobile Menu -->
+        <div class="slider-active">
+            <div class="single-slider slider-height d-flex align-items-center" data-background="assets/img/hero/istockphoto-492310846-612x612.jpg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-9 col-md-10">
+                            <div class="hero__caption">
+                                <h2 style="color:white">Retrouvez des vehicules personnels pour vos voyages ou que vous 
+                                    soyez c'est simple dites:</h2><br>
                             </div>
                         </div>
-                        <!-- Search Box -->
-                        <div class="row">
-                            <div class="col-xl-8">
-                                <!-- form -->
-                                <form  class="search-box" action="index.php?page=search" method='POST'>
+                    </div>
+                    <!-- Search Box -->
+                    <div class="row">
+                        <div class="col-xl-8">
+                            <!-- form -->
+                            <form class="search-box form-container" action="index.php?page=search" method="POST">
+                                <!-- Input field for departure -->
                                 <div class="select-form">
-                                        <div class="select-itms">
-                                            <select name="lieuDep" id="select1">
-                                                <option value="">--Où vous trouvez-vous?--</option>
-                                                <option value="Yaoundé ">Yaoundé</option>
-                                                <option value="Douala">Douala</option>
-                                                <option value="Bafoussam">Bafoussam</option>
-                                                <option value="Ngaroundere">Ngaroundere</option>
-                                                <option value="Bertoua">Bertoua</option>
-                                                <option value="Bamenda">Bamenda</option>
-                                                <option value="Buea">Buea</option>
-                                                <option value="Maroua">Maroua</option>
-                                                <option value="Garoua">Garoua</option> 
-                                            </select>
-                                        </div>
+                                    <div class="select-itms" style="position: relative;">
+                                        <!-- Input for Departure -->
+                                        <input type="text" name="lieuDep" id="lieuDep" placeholder="Où vous trouvez-vous ?" 
+                                            oninput="showSuggestions(this.value, 'depSuggestions')" autocomplete="off" />
+                                        <!-- Suggestions Container -->
+                                        <div id="depSuggestions" class="suggestions"></div>
                                     </div>
-                                    <div class="select-form">
-                                        <div class="select-itms">
-                                            <select name="lieuArriv" id="select1">
-                                                <option value="">--Où vous rendez-vous?--</option>
-                                                <option value="Yaoundé ">Yaoundé</option>
-                                                <option value="Douala">Douala</option>
-                                                <option value="Bafoussam">Bafoussam</option>
-                                                <option value="Ngaroundere">Ngaroundere</option>
-                                                <option value="Bertoua">Bertoua</option>
-                                                <option value="Bamenda">Bamenda</option>
-                                                <option value="Buea">Buea</option>
-                                                <option value="Maroua">Maroua</option>
-                                                <option value="Garoua">Garoua</option>
-                                            </select>
-                                        </div>
-                                    </div> 
-                                    <div class="search-form"> 
-                                       <input type="submit" id="search" value="Chercher" class="button1" style="width:100%;height:70px;background:#38B6FF;font-size:20px;line-height:1;text-align:center;color:#fff;display:block;padding:15px;border-radius:0px;text-transform:capitalize;border: 0px #38B6FF;font-family:"Muli",sans-serif;letter-spacing:0.1em;line-height:1.2;line-height:38px;font-size:14px;">
-                                   </div> 
-                                </form>	
-                            </div>
+                                </div>
+                                <!-- Input field for arrival -->
+                                <div class="select-form">
+                                    <div class="select-itms" style="position: relative;">
+                                        <!-- Input for Arrival -->
+                                        <input type="text" name="lieuArriv" id="lieuArriv" placeholder="Où vous rendez-vous ?" 
+                                            oninput="showSuggestions(this.value, 'arrivSuggestions')" autocomplete="off" />
+                                        <!-- Suggestions Container -->
+                                        <div id="arrivSuggestions" class="suggestions"></div>
+                                    </div>
+                                </div>
+                                <!-- Search Button -->
+                                <div class="search-form">
+                                    <input type="submit" id="search" value="Chercher" class="button1"> 
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- slider Area End-->
-        <!-- Our Services Start -->
+    </div>
+    <!-- slider Area End-->
+
+<!-- Our Services Start -->
         
         <!-- Online CV Area End-->
         <!-- Featured_job_start -->
@@ -77,7 +161,7 @@
                         <div class="section-tittle text-center">
                             <span style="color:#232323;font-weight:bold">Nos destinations</span>
                             <!--<div class=" col-offset-4" style="height:2px;background-color:black"></div> -->
-                            <h2 style="color:#38B6FF">Voyages publiés recemment</h2>
+                            <h2 style="color:#38B6FF">Voyages publiés récemment</h2>
                         </div>
                     </div>
                 </div>
@@ -85,7 +169,7 @@
                     <div class="col-xl-10">
                         <!-- single-job-content -->
                         <?php 
-                            $bdd = new PDO('mysql:host=localhost;dbname=klando', 'root', '');
+                            $bdd = new PDO('mysql:host=127.0.0.1;dbname=covago', 'root', 'root');
                             $req = $bdd->prepare('SELECT * FROM journey ORDER BY id ASC LIMIT 6');
                             $req->execute(array());
                             $dateN = time();
@@ -107,23 +191,21 @@
                                 <div class="single-job-items mb-30">
                                     <div class="job-items">
                                         <div class="company-img">
-                                            <a href="#"><img src="assets/img/<?= $resultat['photo_1']; ?>" alt="" width="80" height="80"></a>
+                                            <a href="#"><img src="uploads/<?= $resultat['photo_1']; ?>" class="vehicle-image" alt="image du véhicule"></a>
                                         </div>
                                         <div class="job-tittle job-tittle2">
                                             <a href="#">
                                                 <h4><span style="color:#38B6FF">De</span> <?= $resultat['lieuDep']."<span style='color:#38B6FF'> Pour</span> ".$resultat['lieuArriv']; ?></h4>
                                             </a>
                                             <ul>
-                                                <li><span>Depart prévu le</span> <span style="color:#38B6FF"><?= $resultat['dateTravel']; ?><span/></li>
-                                                <li><span> à </span><span style="color:#38B6FF"><?= $resultat['heureDep']; ?><span/></li>
+                                                <li><span>Départ prévu le</span> <span style="color:#38B6FF"><?= $resultat['dateTravel']; ?><span/></li>
+                                                <li><span> à </span><span style="color:#38B6FF"><?= $resultat['heureDep']; ?><span/></li>                                          
                                             </ul>
                                         </div>
                                     </div>
                                     <div class="items-link items-link2 f-right">
                                         <?="<a href=index.php?page=details&amp;id=$id>Voir les details</a>"; ?>
-                                        
-                                        
-                                    </div>
+                                    </div>                                  
                                 </div><hr>
                                 <?php }?> 
                         <!-- single-job-content -->
@@ -251,9 +333,85 @@
             </div>
             </div> 
         </div>
-    </div>
-    <?php include('footer1.html'); ?>     
-   
-        
+    </main>
+    <?php include('footer1.html'); ?>        
     </body>
+
+</main>
+
+<!-- javascript to handle the input suggestion of cities -->
+<script>
+    const cities = [
+        "Yaoundé",
+        "Douala",
+        "Bafoussam",
+        "Ngaroundere",
+        "Bertoua",
+        "Bamenda",
+        "Buea",
+        "Maroua",
+        "Garoua"
+    ];
+
+    function showSuggestions(value, suggestionBoxId) {
+        const suggestionBox = document.getElementById(suggestionBoxId);
+        suggestionBox.innerHTML = ""; // Clear previous suggestions
+        suggestionBox.style.display = "none"; // Hide by default
+
+        if (value.trim() === "") return; // If input is empty, don't show suggestions
+
+        // Filter cities based on the input value
+        const matches = cities.filter(city => city.toLowerCase().startsWith(value.toLowerCase()));
+
+        if (matches.length > 0) {
+            matches.forEach(match => {
+                const div = document.createElement("div");
+                div.textContent = match;
+
+                // Add click event listener to populate input and hide suggestions
+                div.addEventListener("click", function (event) {
+                    event.stopPropagation(); // Prevent the document click event from firing
+                    let inputId;
+
+                    // Determine the correct input field ID based on the suggestion box ID
+                    if (suggestionBoxId === 'depSuggestions') {
+                        inputId = 'lieuDep';
+                    } else if (suggestionBoxId === 'arrivSuggestions') {
+                        inputId = 'lieuArriv';
+                    }
+
+                    const inputField = document.getElementById(inputId);
+
+                    if (inputField) {
+                        inputField.value = match; // Set the input value
+                        suggestionBox.innerHTML = ""; // Clear suggestions
+                        suggestionBox.style.display = "none"; // Hide suggestions
+                    } else {
+                        console.error(`Input field with ID ${inputId} not found`); // Debugging
+                    }
+                });
+
+                suggestionBox.appendChild(div);
+            });
+            suggestionBox.style.display = "block"; // Show suggestions
+        }
+    }
+
+    // Hide suggestions when clicking outside
+    document.addEventListener("click", function (event) {
+        const suggestionBoxes = document.querySelectorAll(".suggestions");
+        suggestionBoxes.forEach(box => {
+            box.style.display = "none";
+        });
+    });
+
+    // Prevent hiding suggestions when clicking inside input or suggestion box
+    document.getElementById("lieuDep").addEventListener("click", (event) => {
+        event.stopPropagation();
+    });
+    document.getElementById("lieuArriv").addEventListener("click", (event) => {
+        event.stopPropagation();
+    });
+
+</script>
 </html>
