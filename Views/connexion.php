@@ -70,7 +70,7 @@
                         <input class="form-control" name="email" id="subject" type="email" required onfocus="this.placeholder = ''" onblur="this.placeholder = 'Entrez votre adresse email'" placeholder="Entrez votre adresse email">
                         <input class="form-control" name="passwordUser" id="subject" type="password" required onfocus="this.placeholder = ''" onblur="this.placeholder = 'Entrez votre mot de passe '" placeholder="Entrez votre mot de passe">
                         <input type="submit" name="next" id ="Soumettre"  value="Se connecter"/>  
-                        <a href="index.php?page=connexion" 
+                        <a href="index.php?page=registration" 
                                 style="color:blue;margin-left:30px;">Creer un compte</a>
                     </div>
                                 

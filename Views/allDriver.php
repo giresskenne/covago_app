@@ -57,7 +57,7 @@
                                     <td class="avatar">
                                                         <div class="round-img">
                                                             <a href="" style="color:blue"><img class="rounded-circle" width="30" height="30" 
-                                                            src="Models/uploads/500x500.JPG" alt=""> <span><?=$resultat["email"]?></span>
+                                                            src="Models/uploads/covago_logo_black.png" alt=""> <span><?=$resultat["email"]?></span>
                                                             </a></div>
                                                     </td>
                                     </tr> <?php }?>

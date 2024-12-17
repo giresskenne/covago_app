@@ -87,7 +87,7 @@
                                 <div class="single-job-items mb-30">
                                     <div class="job-items">
                                         <div class="company-img">
-                                            <a href="#"><img src="assets/img/<?= $resultat['photo_1']; ?>" alt="" width="80" height="80"></a>
+                                            <a href="#"><img src="uploads<?= $resultat['photo_1']; ?>" alt="" width="80" height="80"></a>
                                         </div>
                                         <div class="job-tittle job-tittle2">
                                             <a href="#">
@@ -100,7 +100,7 @@
                                         </div>
                                     </div>
                                     <div class="items-link items-link2 f-right">
-                                    <?="<a href=index.php?page=details&amp;id=$id>Voir les details</a>"; ?>
+                                    <?="<a href=index.php?page=details&amp;id=$id>Voir les détails</a>"; ?>
                                         <span>Publié Il y a <?php  echo $retour['day']; ?> Jours</span>
                                     </div>
                                 </div><hr>

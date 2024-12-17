@@ -1,5 +1,9 @@
 <?php
-//session_start();
+// Start the session at the very beginning
+session_start();
+
+// Include the database connection function, ensuring it's only included once
+// require_once 'Models/db.php';
 if (isset($_GET["page"]) && !empty($_GET["page"])) {
    require 'Models/deleteJourney.php';
    $req=dropJourney();
@@ -48,7 +52,11 @@ if (isset($_GET["page"]) && !empty($_GET["page"])) {
      }
      if ($_GET["page"]=="goodPost") {
         require('Views/goodPost.php'); 
-     } 
+     }
+     if ($_GET["page"] == "goodBooking") {
+      require('Views/goodBooking.php');
+     }
+   
      if ($_GET["page"]=="Cgu") {
       require('Views/Cgu.php');
    } 
@@ -58,6 +66,30 @@ if (isset($_GET["page"]) && !empty($_GET["page"])) {
    if ($_GET["page"]=="deconnection") {
       require('Models/deconnexion.php');
 } 
+   if ($_GET["page"]=="profil") { // route vers la page profil d'utilisateur créee par Giress
+   require('Views/user_profile.php');
+} 
+// --------------- bookings ---------------------
+if ($_GET['page'] === 'booking') {
+   include('Models/booking_manager.php');
+
+   // Retrieve POST data
+   $journey_id = $_POST['journey_id'] ?? null;
+   $user_id = $_SESSION['user_id'] ?? null;
+   $seats_booked = $_POST['seats_booked'] ?? 1; // Default to 1 seat
+
+   // Call the booking logic
+   $result = handleBooking($journey_id, $user_id, $seats_booked);
+
+   if ($result['success']) {
+       header('Location: index.php?page=goodBooking&message=' . urlencode($result['message']));
+   } else {
+       echo "<p style='color: red;'>{$result['message']}</p>";
+   }
+   exit();
+}
+// ----------------- end ---------------------------
+
 if ($_GET["page"]=="allDriver") {
    require 'Models/listing_journey.php';
         $req  = getDriver();

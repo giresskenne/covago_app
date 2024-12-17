@@ -17,7 +17,7 @@ return $req;
 }
 function getNumberJob()
 {
-    $bdd = new PDO('mysql:host=localhost;dbname=klando', 'root', '');
+    $bdd = new PDO('mysql:host=127.0.0.1;dbname=covago', 'root', 'root');
     $req = $bdd->prepare('SELECT * FROM journey');
     $req->execute(array());
     $nombre = $req->rowCount();
@@ -26,7 +26,7 @@ function getNumberJob()
 
 function getNumberDriver()
 {
-    $bdd = new PDO('mysql:host=localhost;dbname=klando', 'root', '');
+    $bdd = new PDO('mysql:host=127.0.0.1;dbname=covago', 'root', 'root');
     $req = $bdd->prepare('SELECT * FROM users');
     $req->execute(array());
     $nombre = $req->rowCount();

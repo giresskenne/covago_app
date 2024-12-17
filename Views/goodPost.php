@@ -58,7 +58,7 @@
                 <?php 
                 if (isset($_GET["message"])) {
                     $message=$_GET["message"];
-                    echo $_SESSION["email"].$_SESSION["phoneNumber"];
+                    // echo $_SESSION["email"].$_SESSION["phoneNumber"];
                 ?>
                 <h3 style="color:green"><strong><?= $message ?></strong></h3>
                 <?php
@@ -69,19 +69,23 @@
                        
                             <fieldset>
                                 <div class="form-card">
-                                    <h2 class="fs-title text-center">Reussi !</h2>
+                                    <!-- <h2 class="fs-title text-center">Reussi !</h2> -->
                                     <br>
-                                    <h2><strong class="text text-success">Votre  voyage a été publié avec succes</strong></h2>
+                                    <!-- <h2><strong class="text text-success">Votre  voyage a été publié avec succes</strong></h2> -->
                                     <h5><li><a href="index.php?page=publier" class="text text-info">Publier un autre voyage</a></li></h5>
-                                    <div class="row justify-content-center">
+                                    <div class="row justify-content-center"> 
                                         <div class="col-3">
                                             <img src="https://img.icons8.com/color/96/000000/ok--v2.png" class="fit-image">
                                         </div>
                                     </div>
                                     <br><br>
                                     <div class="row justify-content-center">
-                                        <div class="col-7 text-center">
-                                            <h5 class="h5">Vous pouvez maintenant <a href="" class="text text-primary"> consulter votre voyage</a> a la page d'accueil ou grace a la barre de recherche</h5>
+                                        <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
+                                            <h5 class="h5">
+                                                Vous pouvez maintenant 
+                                                <a href="index.php?page=details&id=<?= $_GET['id'] ?>" class="text text-primary">consulter votre voyage</a> 
+                                                à la page d'accueil ou grâce à la barre de recherche.
+                                            </h5>
                                         </div>
                                     </div>
                                 </div>
@@ -93,7 +97,5 @@
         </div>
     </div>
 </div>
-
-    </body>
-    
-    </html>
+</body>
+</html>
