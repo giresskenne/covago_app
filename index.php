@@ -90,6 +90,31 @@ if ($_GET['page'] === 'booking') {
 }
 // ----------------- end ---------------------------
 
+
+  // --------------- CANCELLATION AND EDITING OF JOURNEY AND BOOKINGS ---------------------
+
+   if ($_GET["page"] === "edit_booking") {
+       include_once('Models/edit_booking.php'); // Route to edit booking logic
+       exit; // End execution after the operation
+   }
+
+   if ($_GET["page"] === "cancel_booking") {
+       include_once('Models/cancel_booking.php'); // Route to cancel booking logic
+       exit; // End execution after the operation
+   }
+
+   if ($_GET["page"] === "edit_journey") {
+       include_once('Models/edit_journey.php'); // Route to edit journey logic
+       exit; // End execution after the operation
+   }
+
+   if ($_GET["page"] === "cancel_journey") {
+       include_once('Models/cancel_journey.php'); // Route to cancel journey logic
+       exit; // End execution after the operation
+   }
+   
+  // --------------- END OF CANCELLATION AND EDITING OF JOURNEY AND BOOKINGS ---------------------
+
 if ($_GET["page"]=="allDriver") {
    require 'Models/listing_journey.php';
         $req  = getDriver();
