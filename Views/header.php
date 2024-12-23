@@ -24,6 +24,36 @@
             <link rel="stylesheet" href="assets/css/slick.css">
             <link rel="stylesheet" href="assets/css/nice-select.css">
             <link rel="stylesheet" href="assets/css/style.css">
+            <!-- for cities suggestion when typing -->
+            <link rel="stylesheet" href="assets/css/suggestions.css">
+
+        <!-- ADDED BY GIRESS TO MANAGE GLOBAL MODAL -->
+            <!-- Include the modal HTML -->
+            <?php include('notification_modal.php'); ?>
+
+            <!-- Include the modal CSS -->
+            <link rel="stylesheet" href="assets/css/notification_modal.css">
+
+            <!-- Include the modal JavaScript -->
+            <script src="assets/js/notification_modal.js"></script>
+            <!-- javascript to handle suggestions of cities  -->
+            <script src="assets/js/suggestions.js"></script>
+
+
+            <?php
+            // Handle session-based notifications
+            if (isset($_SESSION['notification'])) {
+                $notification = $_SESSION['notification'];
+                echo "<script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        openNotificationModal('" . addslashes($notification['title']) . "', '" . addslashes($notification['message']) . "');
+                    });
+                </script>";
+                unset($_SESSION['notification']); // Clear notification after displaying
+            }
+            ?>
+        <!--  ---------------- END ----------------- -->
+
             <style>
                  body{
                     /*font-family:orkney;*/
