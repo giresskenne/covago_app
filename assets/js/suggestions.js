@@ -11,15 +11,14 @@ const cities = [
     "Garoua"
 ];
 
-// Function to show suggestions
-function showSuggestions(inputElement, suggestionBox) {
-    const value = inputElement.value.trim(); // Trim input value
+function showSuggestions(value, suggestionBoxId) {
+    const suggestionBox = document.getElementById(suggestionBoxId);
     suggestionBox.innerHTML = ""; // Clear previous suggestions
     suggestionBox.style.display = "none"; // Hide by default
 
-    if (value === "") return; // If input is empty, don't show suggestions
+    if (value.trim() === "") return; // If input is empty, don't show suggestions
 
-    // Filter cities based on input value
+    // Filter cities based on the input value
     const matches = cities.filter(city => city.toLowerCase().startsWith(value.toLowerCase()));
 
     if (matches.length > 0) {
@@ -29,10 +28,13 @@ function showSuggestions(inputElement, suggestionBox) {
 
             // Add click event listener to populate input and hide suggestions
             div.addEventListener("click", function (event) {
-                event.stopPropagation(); // Prevent document click from firing
-                inputElement.value = match; // Set the input value
-                suggestionBox.innerHTML = ""; // Clear suggestions
-                suggestionBox.style.display = "none"; // Hide suggestions
+                event.stopPropagation(); // Prevent the document click event from firing
+                const inputField = suggestionBox.previousElementSibling;
+                if (inputField) {
+                    inputField.value = match; // Set the input value
+                    suggestionBox.innerHTML = ""; // Clear suggestions
+                    suggestionBox.style.display = "none"; // Hide suggestions
+                }
             });
 
             suggestionBox.appendChild(div);
@@ -41,7 +43,7 @@ function showSuggestions(inputElement, suggestionBox) {
     }
 }
 
-// Event listener to hide suggestions when clicking outside
+// Hide suggestions when clicking outside
 document.addEventListener("click", function () {
     const suggestionBoxes = document.querySelectorAll(".suggestions");
     suggestionBoxes.forEach(box => {

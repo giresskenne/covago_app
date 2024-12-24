@@ -16,4 +16,3 @@ function getBdd()
     return $bdd;
 }
 
-

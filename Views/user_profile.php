@@ -234,7 +234,7 @@
                             journey.dateTravel, 
                             journey.nbPlaces, 
                             journey.heureDep,
-                            (SELECT COUNT(*) FROM bookings WHERE bookings.journey_id = journey.id) AS passengers_booked
+                            (SELECT SUM(seats_booked) FROM bookings WHERE bookings.journey_id = journey.id) AS passengers_booked
                         FROM journey
                         WHERE journey.emailChauffeur = :email
                     ";
@@ -323,9 +323,11 @@
                     journey.lieuArriv,
                     journey.dateTravel,
                     journey.heureDep,
-                    journey.nbPlaces
+                    journey.nbPlaces,
+                    users.phoneNumber
                 FROM bookings
-                INNER JOIN journey ON bookings.journey_id = journey.id
+                INNER JOIN journey ON bookings.journey_id = journey.id 
+                INNER JOIN users ON users.email = journey.emailChauffeur
                 WHERE bookings.user_id = :user_id
             ";
             $bookedStmt = $bdd->prepare($bookedQuery);
@@ -345,6 +347,7 @@
                             <li><strong>Pour:</strong> <?= $booking['lieuArriv']; ?></li>
                             <li><strong>Date de départ:</strong> <?= $booking['dateTravel']; ?></li>
                             <li><strong>Heure de départ:</strong> <?= $booking['heureDep']; ?></li>
+                            <li><strong>Numero du chauffeur:</strong> <?= $booking['phoneNumber']; ?></li>
                             <li><strong>Places réservées:</strong> <?= $booking['seats_booked']; ?></li>
                         </ul>
                         <!-- Edit and Cancel Buttons -->
@@ -388,7 +391,7 @@
                     journey.lieuArriv,
                     journey.dateTravel,
                     journey.nbPlaces,
-                    (SELECT COUNT(*) FROM bookings WHERE bookings.journey_id = journey.id) AS passengers_booked
+                    (SELECT SUM(seats_booked) FROM bookings WHERE bookings.journey_id = journey.id) AS passengers_booked
                 FROM journey
                 WHERE journey.emailChauffeur = :email
             ";
@@ -407,7 +410,7 @@
                             <li><strong>Pour:</strong> <?= $driverJourney['lieuArriv']; ?></li>
                             <li><strong>Date de départ:</strong> <?= $driverJourney['dateTravel']; ?></li>
                             <li><strong>Places disponibles:</strong> <?= $driverJourney['nbPlaces']; ?></li>
-                            <li><strong>Réservations:</strong> <?= $driverJourney['passengers_booked']; ?></li>
+                            <li><strong>Réservations:</strong> <?= $driverJourney['passengers_booked']; ?> places</li>
                         </ul>
                         <div class="items-link">
                             <?php if ($driverJourney['passengers_booked'] == 0) { ?>
@@ -554,16 +557,20 @@
 
 // // --------------------------- Javascript to manage input sugestions --------------------------
     
-    document.getElementById("lieuDep").addEventListener("input", function () {
-        const inputElement = this;
-        const suggestionBox = document.getElementById("depSuggestions");
-        showSuggestions(inputElement, suggestionBox);
+    // Prevent hiding suggestions when clicking inside input or suggestion box
+    document.getElementById("lieuDep").addEventListener("click", (event) => {
+        event.stopPropagation();
+    });
+    document.getElementById("lieuArriv").addEventListener("click", (event) => {
+        event.stopPropagation();
     });
     
-    document.getElementById("lieuArriv").addEventListener("input", function () {
-        const inputElement = this;
-        const suggestionBox = document.getElementById("arrivSuggestions");
-        showSuggestions(inputElement, suggestionBox);
+    // Prevent the modal suggestions from hiding too
+    document.getElementById("editDepSuggestions").addEventListener("click", (event) => {
+        event.stopPropagation();
     });
-    
+    document.getElementById("editArrivSuggestions").addEventListener("click", (event) => {
+        event.stopPropagation();
+    });
+
 </script>
