@@ -23,7 +23,7 @@ function isEmail($var) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $array["email"] = verifyInput($_POST["email"]);
     $array["phoneNumber"] = verifyInput($_POST["phoneNumber"]);
-    $array["passwordUser"] = sha1($_POST["passwordUser"]); // Hash the password
+    $array["passwordUser"] = password_hash($_POST["passwordUser"], PASSWORD_BCRYPT); // Hash the password securely
     $array["isSuccess"] = true;
     $numberTaille = strlen($array["phoneNumber"]);
     $pwdTaille = strlen($_POST["passwordUser"]);
@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $email = $array["email"];
     $phoneNumber = $array["phoneNumber"];
-    $pwd = $array["passwordUser"];
+    $pwd = $array["passwordUser"]; // The hashed password
 
     include('Models/db.php');
     $bdd = getBdd();
@@ -69,13 +69,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $req->execute(array(
             'email' => $email,
             'phoneNumber' => $phoneNumber,
-            'password' => $pwd,
+            'password' => $pwd, // Save the hashed password
         ));
 
         // Store session variables
         session_start();
         $_SESSION["email"] = $email;
         $_SESSION["phoneNumber"] = $phoneNumber;
+
+        $_SESSION['notification'] = [
+            'title' => 'Succès',
+            'message' => 'Votre Compte à été crée avec succès.',
+        ];
 
         // Redirect to the user's account home page
         header('Location: index.php?page=accueil');

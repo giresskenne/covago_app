@@ -21,7 +21,7 @@ include('header.php');
         transition: background 0.3s;
     }
     .book-btn:hover {
-        background: #007BFF;
+        background: #7ed957;
     }
 </style>
 <main style="background-color:whitesmoke">
