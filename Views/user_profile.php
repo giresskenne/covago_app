@@ -173,7 +173,7 @@
             <div>
                 <?php 
                     // Database connection
-                    $bdd = new PDO('mysql:host=127.0.0.1;dbname=covago', 'root', 'root');
+                    $bdd = new PDO('mysql:host=mysql;port=3306;dbname=covago', 'root', 'root');
 
                     // ============================
                     // Fetch user basic information

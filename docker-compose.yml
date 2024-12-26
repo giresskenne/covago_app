@@ -39,7 +39,7 @@ services:
       - db_data:/var/lib/mysql
       - ./covago.sql:/docker-entrypoint-initdb.d/covago.sql
     ports:
-      - "3307:3307"
+      - "3307:3306"
 
 volumes:
   db_data:

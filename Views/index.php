@@ -169,7 +169,7 @@
                     <div class="col-xl-10">
                         <!-- single-job-content -->
                         <?php 
-                            $bdd = new PDO('mysql:host=127.0.0.1;dbname=covago', 'root', 'root');
+                            $bdd = new PDO('mysql:host=mysql;port=3306;dbname=covago', 'root', 'root');
                             $req = $bdd->prepare('SELECT * FROM journey ORDER BY id ASC LIMIT 6');
                             $req->execute(array());
                             $dateN = time();
