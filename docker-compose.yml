@@ -13,7 +13,7 @@ services:
       - DB_HOST=mysql
       - DB_USER=root
       - DB_PASSWORD=root
-      - DB_NAME=klando
+      - DB_NAME=covago
     depends_on:
       - mysql
     entrypoint: ["sh", "-c", "while ! mysqladmin ping -h mysql --silent; do echo 'waiting for mysql'; sleep 2; done && php-fpm"]
@@ -34,12 +34,12 @@ services:
     container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: klando
+      MYSQL_DATABASE: covago
     volumes:
       - db_data:/var/lib/mysql
-      - ./klando.sql:/docker-entrypoint-initdb.d/klando.sql
+      - ./covago.sql:/docker-entrypoint-initdb.d/covago.sql
     ports:
-      - "3306:3306"
+      - "3307:3307"
 
 volumes:
   db_data:
