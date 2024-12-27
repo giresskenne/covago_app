@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $message = isset($_POST["message"]) ? $_POST["message"] : ''; // Check if 'message' key is set

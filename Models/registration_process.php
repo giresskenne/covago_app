@@ -1,4 +1,9 @@
 <?php
+// Start the session only if it's not already started
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
 $array = array(
     "email" => "",
     "phoneNumber" => "",
@@ -73,7 +78,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ));
 
         // Store session variables
-        session_start();
         $_SESSION["email"] = $email;
         $_SESSION["phoneNumber"] = $phoneNumber;
 
