@@ -20,6 +20,9 @@ RUN mkdir -p /var/log && \
     touch /var/log/php_errors.log && \
     chmod 666 /var/log/php_errors.log
 
+# Create the uploads directory and set its permissions
+RUN mkdir -p /var/www/html/uploads && chmod -R 777 /var/www/html/uploads
+
 # Set up custom php.ini file for error handling
 COPY php.ini /usr/local/etc/php/php.ini
 

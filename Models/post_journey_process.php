@@ -5,21 +5,22 @@ ob_start();
 // Retrieve session email (currently logged-in user)
 session_start();
 if (!isset($_SESSION['email'])) {
-    die("Vous devez être connecté pour publier un voyage.");
+    header('Location: login.php'); // Redirect to login page
+    exit();
 }
 
 $emailChauffeur = $_SESSION['email']; // Fetch email of logged-in user
 
-$immat = $_POST["imat"];
-$marque = $_POST["marque"];
-$model = $_POST["model"];
-$couleur = $_POST["couleur"];
-$nbPlaces = $_POST["nbPlaces"];
-$dateTravel = $_POST["dateTravel"];
-$lieuDep = $_POST["lieuDep"];
-$lieuArriv = $_POST["lieuArriv"];
-$postDate = date('y/m/d');
-$heureDep = $_POST["heureDep"];
+$immat = filter_input(INPUT_POST, 'imat', FILTER_SANITIZE_STRING);
+$marque = filter_input(INPUT_POST, 'marque', FILTER_SANITIZE_STRING);
+$model = filter_input(INPUT_POST, 'model', FILTER_SANITIZE_STRING);
+$couleur = filter_input(INPUT_POST, 'couleur', FILTER_SANITIZE_STRING);
+$nbPlaces = filter_input(INPUT_POST, 'nbPlaces', FILTER_VALIDATE_INT);
+$dateTravel = filter_input(INPUT_POST, 'dateTravel', FILTER_SANITIZE_STRING);
+$lieuDep = filter_input(INPUT_POST, 'lieuDep', FILTER_SANITIZE_STRING);
+$lieuArriv = filter_input(INPUT_POST, 'lieuArriv', FILTER_SANITIZE_STRING);
+$postDate = date('Y-m-d'); // Correct date format
+$heureDep = filter_input(INPUT_POST, 'heureDep', FILTER_SANITIZE_STRING);
 
 include('Models/db.php'); 
 $bdd = getBdd();
@@ -53,20 +54,32 @@ if ($photo_3 && !in_array($photo_3_extension, $allowed_extensions)) {
 // Ensure the first photo is uploaded
 if (!empty($_FILES["photo_1"]["tmp_name"])) {
     if ($_FILES["photo_1"]["error"] === UPLOAD_ERR_OK) {
-        move_uploaded_file($_FILES["photo_1"]["tmp_name"], "$uploads_dir/$photo_1");
+        if (move_uploaded_file($_FILES["photo_1"]["tmp_name"], "$uploads_dir/$photo_1")) {
+            echo "File 1 uploaded successfully!";
+        } else {
+            echo "Failed to move uploaded file 1.";
+        }
     } else {
-        die("Error uploading the first photo.");
+        echo "Error uploading the first photo.";
     }
 } else {
-    die("The first photo is required.");
+    echo "The first photo is required.";
 }
 
 // Move optional photos if they are provided and valid
 if (!empty($_FILES["photo_2"]["tmp_name"]) && $_FILES["photo_2"]["error"] === UPLOAD_ERR_OK) {
-    move_uploaded_file($_FILES["photo_2"]["tmp_name"], "$uploads_dir/$photo_2");
+    if (move_uploaded_file($_FILES["photo_2"]["tmp_name"], "$uploads_dir/$photo_2")) {
+        echo "File 2 uploaded successfully!";
+    } else {
+        echo "Failed to move uploaded file 2.";
+    }
 }
 if (!empty($_FILES["photo_3"]["tmp_name"]) && $_FILES["photo_3"]["error"] === UPLOAD_ERR_OK) {
-    move_uploaded_file($_FILES["photo_3"]["tmp_name"], "$uploads_dir/$photo_3");
+    if (move_uploaded_file($_FILES["photo_3"]["tmp_name"], "$uploads_dir/$photo_3")) {
+        echo "File 3 uploaded successfully!";
+    } else {
+        echo "Failed to move uploaded file 3.";
+    }
 }
 
 // Insert the journey into the database
