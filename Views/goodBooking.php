@@ -82,7 +82,8 @@
                                         <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
                                             <h5 class="h5">
                                                 Vous pouvez maintenant 
-                                                <a href="index.php?page=partager&id=<?= $_GET['id'] ?>" class="text text-primary">Partager</a> <!-- page partager a creer ou icones de facebook et whatsapp en dessous -->
+                                                <a href="index.php?page=partager&id=<?= isset($_GET['id']) ? htmlspecialchars($_GET['id'], ENT_QUOTES, 'UTF-8') : '' ?>" class="text text-primary">Partager</a>
+                                                <!-- page partager a creer ou icones de facebook et whatsapp en dessous -->
                                                 l'application.
                                             </h5>
                                         </div>

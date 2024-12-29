@@ -1,3 +1,18 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+// Check if the user is logged in
+$email = isset($_SESSION['email']) ? $_SESSION['email'] : null;
+
+if ($email) {
+    // Safe to use $email
+} else {
+    // Redirect to the login page if the user is not authenticated
+    header('Location: index.php?page=connexion');
+    exit;
+}
+?>
 <!doctype html>
 <html class="no-js" lang="zxx">
 <?php include('header.php'); ?>
@@ -84,7 +99,7 @@
     }
 
     .details-button:hover {
-        background-color: #2a93cc;
+        background-color: #38b6ff;
         text-decoration: none;
     }
 
@@ -143,7 +158,7 @@
     }
 
     .modal-buttons .btn-danger {
-        background-color: #ff4c4c;
+        background-color: #7ed957;
         color: white;
     }
 
@@ -160,13 +175,24 @@
             </div>
         </div>
         <div class="profile-sidebar text-center">
-            <?php 
+        <!-- NEW CODE FOR PROFILE PICTURE -->
+        <?php 
+            // Generate dynamic profile image URL
+            $profilePhoto = 'Models/profile_image.php?email=' . urlencode($_SESSION['email'] ?? 'guest@example.com');
+        ?>
+        <img src="<?= $profilePhoto ?>" alt="Photo de Profil" class="profile-img">
+
+
+            <!-- OLD BLOCK OF CODE FOR PROFILE -->
+            <!-- <?php 
             // Placeholder logic for profile photo
-            $profilePhoto = !empty($user['profile_photo']) && file_exists('uploads/' . $user['profile_photo']) 
-                ? 'uploads/' . $user['profile_photo'] 
-                : 'assets/img/placeholder-circle.png'; 
-            ?>
-            <img src="<?= $profilePhoto ?>" alt="Photo de Profil" class="profile-img">
+            // $profilePhoto = !empty($user['profile_photo']) && file_exists('profile_img/' . $user['profile_photo']) 
+            //     ? 'profile_img/' . $user['profile_photo'] 
+            //     : 'assets/img/placeholder-circle.png'; 
+            // ?>
+            <img src="<?= $profilePhoto ?>" alt="Photo de Profil" class="profile-img"> -->
+            <!-- OLD BLOCK OF CODE FOR PROFILE -->
+
             <h3><?php echo $_SESSION['email']; ?></h3>
             <p>No rating yet</p>
 
@@ -284,8 +310,8 @@
                         if ($bookingStmt->rowCount() > 0) {
                             echo "<h5>Passagers réservés:</h5><ul>";
                             while ($passenger = $bookingStmt->fetch()) {
-                                echo "<li><strong>Email:</strong> " . htmlspecialchars($passenger['email']) . " | ";
-                                echo "<strong>Téléphone:</strong> " . htmlspecialchars($passenger['phoneNumber']) . "</li>";
+                                echo "<li><strong>Email:</strong> " . htmlspecialchars($passenger['email'], ENT_QUOTES, 'UTF-8') . " | ";
+                                echo "<strong>Téléphone:</strong> " . htmlspecialchars($passenger['phoneNumber'], ENT_QUOTES, 'UTF-8') . "</li>";
                             }
                             echo "</ul>";
                         } else {
@@ -365,7 +391,7 @@
                                 <button type="submit" class="btn btn-danger">Annuler</button>
                             </form>
                             <?php } else { ?>
-                                <span style="color: red;">Non annulable (moins de 48h)</span>
+                                <span style="color: red;">Impossible d'annuler le voyage à 48h du départ</span>
                             <?php } ?>
                         </div>
                     </div>
@@ -414,29 +440,27 @@
                         </ul>
                         <div class="items-link">
                             <?php if ($driverJourney['passengers_booked'] == 0) { ?>
-
                                 <!-- Edit Button with Modal Trigger -->
                                 <button type="button" class="btn btn-primary" 
                                     onclick="openEditJourneyModal(
-                                        <?= $driverJourney['journey_id']; ?>,
-                                        <?= $driverJourney['nbPlaces']; ?>,
-                                        '<?= htmlspecialchars($driverJourney['dateTravel']); ?>',
-                                        '<?= htmlspecialchars($driverJourney['heureDep']); ?>',
-                                        '<?= htmlspecialchars($driverJourney['lieuDep']); ?>',
-                                        '<?= htmlspecialchars($driverJourney['lieuArriv']); ?>'
+                                        <?= htmlspecialchars($driverJourney['journey_id'] ?? '', ENT_QUOTES, 'UTF-8'); ?>,
+                                        <?= htmlspecialchars($driverJourney['nbPlaces'] ?? '', ENT_QUOTES, 'UTF-8'); ?>,
+                                        '<?= htmlspecialchars($driverJourney['dateTravel'] ?? '', ENT_QUOTES, 'UTF-8'); ?>',
+                                        '<?= htmlspecialchars($driverJourney['heureDep'] ?? '', ENT_QUOTES, 'UTF-8'); ?>',
+                                        '<?= htmlspecialchars($driverJourney['lieuDep'] ?? '', ENT_QUOTES, 'UTF-8'); ?>',
+                                        '<?= htmlspecialchars($driverJourney['lieuArriv'] ?? '', ENT_QUOTES, 'UTF-8'); ?>'
                                     )">
                                     Modifier
                                 </button>
-
-
                                 <form action="index.php?page=cancel_journey" method="POST" style="display: inline;">
-                                    <input type="hidden" name="journey_id" value="<?= $driverJourney['journey_id']; ?>">
+                                    <input type="hidden" name="journey_id" value="<?= htmlspecialchars($driverJourney['journey_id'], ENT_QUOTES, 'UTF-8'); ?>">
                                     <button type="submit" class="btn btn-danger">Annuler</button>
                                 </form>
                             <?php } else { ?>
                                 <span style="color: red;">Modification impossible (réservations existantes)</span>
                             <?php } ?>
                         </div>
+
                     </div>
                 </div>
             </div>

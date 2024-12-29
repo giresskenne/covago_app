@@ -1,10 +1,12 @@
 <?php
 // cancel_booking.php
-// File to handle the cancellation of bookings
-require_once 'db.php';
-
 // Start the session to access user information
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+// File to handle the cancellation of a journey by the driver
+require_once 'db.php';
 
 // Ensure user is logged in
 if (!isset($_SESSION['email'])) {

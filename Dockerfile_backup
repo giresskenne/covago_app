@@ -15,14 +15,6 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install gd \
     && docker-php-ext-install pdo pdo_mysql
 
-# Create log directory for PHP error logs
-RUN mkdir -p /var/log && \
-    touch /var/log/php_errors.log && \
-    chmod 666 /var/log/php_errors.log
-
-# Set up custom php.ini file for error handling
-COPY php.ini /usr/local/etc/php/php.ini
-
 # Copy the application files to the working directory
 COPY . /var/www/html
 
