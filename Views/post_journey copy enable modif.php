@@ -69,8 +69,8 @@
 
                             <fieldset class="form-card0">   
                                 <div class="form-card" style="">
-                                    <h2 class="fs-title">Information concernant le voyage</h2></br>
-                                    <p id="oblig" style="color:red"><i> Remplir tous ces champs pour passer a la prochaine etape</i></p>
+                                    <h2 class="fs-title">Information sur le voyage</h2></br>
+                                    <p id="oblig" style="color:red"><i> Remplir le formulaire au complet</i></p>
                                     <div class="row">
                                         <div class="col-3">
                                             <label class="pay">Lieu de depart</label>

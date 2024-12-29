@@ -2,6 +2,7 @@
 <html class="no-js" lang="zxx">
 <head>
     <title>Publier un voyage c'est simple!</title>
+    <link rel="stylesheet" href="assets/css/responsive_post_journey.css" type="text/css">
 </head>
     <?php //session_start();
      include('header.php'); 
@@ -68,41 +69,41 @@
                         <form id="msform" enctype="multipart/form-data" method ="POST" action="index.php?page=post_process">
 
                             <fieldset class="form-card0">   
-                                <div class="form-card" style="">
-                                    <h2 class="fs-title">Information concernant le voyage</h2></br>
-                                    <p id="oblig" style="color:red"><i> Remplir tous ces champs pour passer a la prochaine etape</i></p>
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <label class="pay">Lieu de depart</label>
-                                        </div>
-                                        <div class="col-9">
-                                            <select class="list-dt" id="month" name="lieuDep">
-                                            <option value="Yaoundé ">Yaoundé</option>
-                                            <option value="Douala">Douala</option>
-                                            <option value="Bafoussam">Bafoussam</option>
-                                            <option value="Ngaroundere">Ngaroundere</option>
-                                            <option value="Bertoua">Bertoua</option>
-                                            <option value="Bamenda">Bamenda</option>
-                                            <option value="Buea">Buea</option>
-                                            <option value="Maroua">Maroua</option>
-                                            <option value="Garoua">Garoua</option>
-                                            </select>
-                                            
-                                            <label class="pay">Destination</label>
-                                  
-                                            <select class="list-dt" id="month" name="lieuArriv">
-                                            <option value="Yaoundé ">Yaoundé</option>
-                                            <option value="Douala">Douala</option>
-                                            <option value="Bafoussam">Bafoussam</option>
-                                            <option value="Ngaroundere">Ngaroundere</option>
-                                            <option value="Bertoua">Bertoua</option>
-                                            <option value="Bamenda">Bamenda</option>
-                                            <option value="Buea">Buea</option>
-                                            <option value="Maroua">Maroua</option>
-                                            <option value="Garoua">Garoua</option>
-                                            </select>
-                                        </div>
-                                    </div></br>
+                            <div class="form-card">
+  <h2 class="fs-title">Information concernant le voyage</h2>
+  <p id="oblig" style="color:red; margin-bottom: 20px;">
+    <i>Remplir tous ces champs pour passer à la prochaine étape</i>
+  </p>
+  <div class="row">
+    <div class="col-12">
+      <label for="lieuDep">Lieu de départ</label>
+      <select class="list-dt" id="lieuDep" name="lieuDep" required>
+        <option value="Yaoundé">Yaoundé</option>
+        <option value="Douala">Douala</option>
+        <option value="Bafoussam">Bafoussam</option>
+        <option value="Ngaroundere">Ngaroundere</option>
+        <option value="Bertoua">Bertoua</option>
+        <option value="Bamenda">Bamenda</option>
+        <option value="Buea">Buea</option>
+        <option value="Maroua">Maroua</option>
+        <option value="Garoua">Garoua</option>
+      </select>
+
+      <label for="lieuArriv">Destination</label>
+      <select class="list-dt" id="lieuArriv" name="lieuArriv" required>
+        <option value="Yaoundé">Yaoundé</option>
+        <option value="Douala">Douala</option>
+        <option value="Bafoussam">Bafoussam</option>
+        <option value="Ngaroundere">Ngaroundere</option>
+        <option value="Bertoua">Bertoua</option>
+        <option value="Bamenda">Bamenda</option>
+        <option value="Buea">Buea</option>
+        <option value="Maroua">Maroua</option>
+        <option value="Garoua">Garoua</option>
+      </select>
+    </div>
+</div></br>
+
                                     <label>Date de départ: </label>
                                         <input name="dateTravel" type="date" id="dateTravel" placeholder="Entrez la date de voyage" required>
                                         <p class="dateTravel" style="display:none;color:red"><i>Svp renseignez une date valide pour votre voyage</i></p>

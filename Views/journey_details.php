@@ -10,19 +10,31 @@ include('header.php');
         max-width: 400px;
         max-height: 400px;
     }
+
     .book-btn {
-        background: #38B6FF;
-        color: #fff;
-        padding: 10px 20px;
-        border-radius: 4px;
-        border: none;
-        font-size: 16px;
-        cursor: pointer;
-        transition: background 0.3s;
+    background: #38B6FF;
+    color: #fff;
+    padding: 20px 20px;
+    border-radius: 4px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin: 5px 0px 5px 0px; /* Add space between buttons */
+    width: 150px; /* Set a fixed width for both buttons */
+    text-align: center; /* Ensure text is centered */
+    /* height: 50px; */
     }
+
     .book-btn:hover {
-        background: #007BFF;
+        background: #7ed957;
     }
+
+    .number-input { 
+    width: 150px; /* Set the desired width */
+    height: 40px; /* Set the desired height */
+    }
+
 </style>
 <main style="background-color:whitesmoke">
     <div class="container">
@@ -80,7 +92,7 @@ include('header.php');
                             <li>Numero du chauffeur : <span>+237 <?= $phoneNumber; ?></span></li>
 
                             <div class="apply-btn2">
-                                <button class="btn" id="seeMore">Voir plus</button>
+                                <button class="btn book-btn" id="seeMore">Voir plus</button>
                             </div>
                             <div class="apart" style="display:none">
                                 <h3 style="color:#38B6FF">Infos concernant le vehicule</h3>
@@ -104,12 +116,25 @@ include('header.php');
                         </ul>
 
                         <!-- Booking Form -->
-                        <form action="index.php?page=booking" method="POST">
-                            <input type="hidden" name="journey_id" value="<?= $id; ?>">
-                            <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
-                            <input type="number" name="seats_booked" min="1" max="<?= $resultat['nbPlaces']; ?>" placeholder="Nombre de places" required>
-                            <button type="submit" class="btn" style="background-color: #38B6FF; color: white; padding: 10px 15px; border-radius: 5px;">Réserver</button>
-                        </form>
+                        <!-- Check if the user is logged in -->
+                        <?php if (isset($_SESSION['user_id'])): ?>
+                            <!-- Booking Form -->
+                            <form action="index.php?page=booking" method="POST">
+                                <input type="hidden" name="journey_id" value="<?= $id; ?>">
+                                <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
+                                <input type="number" name="seats_booked" min="1" max="<?= $resultat['nbPlaces']; ?>" placeholder="Nombre de places" required class="number-input" required>
+                                <button type="submit" class="btn book-btn">Réserver</button>
+                            </form>
+                            <?php else: ?>
+                                <!-- Trigger the notification modal -->
+                                <button class="btn book-btn" onclick="openNotificationModal(
+                                    'Connexion requise',
+                                    'Veuillez vous connecter ou créer un compte pour continuer.',
+                                    'index.php?page=connexion', // Login link
+                                    'index.php?page=registration', // Registration link
+                                    false // Hide the OK button
+                                )">Réserver</button>
+                            <?php endif; ?>
                         <!-- End Booking Form -->
                     </div>
                 </div>

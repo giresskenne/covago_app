@@ -2,7 +2,7 @@
 function dropJourney()
 {
     $todayDate=date('y/m/d');
-    $bdd = new PDO('mysql:host=127.0.0.1;dbname=covago', 'root', 'root');
+    $bdd = new PDO('mysql:host=mysql;port=3306;dbname=covago', 'root', 'root');
     $req = $bdd->prepare('DELETE  FROM journey WHERE dateTravel <= ? ');
     $req->execute(array( $todayDate));
     return $req;  

@@ -1,3 +1,18 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+// Check if the user is logged in
+$email = isset($_SESSION['email']) ? $_SESSION['email'] : null;
+
+if ($email) {
+    // Safe to use $email
+} else {
+    // Redirect to the login page if the user is not authenticated
+    header('Location: index.php?page=connexion');
+    exit;
+}
+?>
 <!doctype html>
 <html class="no-js" lang="zxx">
 <?php include('header.php'); ?>
@@ -84,7 +99,7 @@
     }
 
     .details-button:hover {
-        background-color: #2a93cc;
+        background-color: #38b6ff;
         text-decoration: none;
     }
 
@@ -143,7 +158,7 @@
     }
 
     .modal-buttons .btn-danger {
-        background-color: #ff4c4c;
+        background-color: #7ed957;
         color: white;
     }
 
@@ -160,20 +175,31 @@
             </div>
         </div>
         <div class="profile-sidebar text-center">
-            <?php 
+        <!-- NEW CODE FOR PROFILE PICTURE -->
+        <?php 
+            // Generate dynamic profile image URL
+            $profilePhoto = 'Models/profile_image.php?email=' . urlencode($_SESSION['email'] ?? 'guest@example.com');
+        ?>
+        <img src="<?= $profilePhoto ?>" alt="Photo de Profil" class="profile-img">
+
+
+            <!-- OLD BLOCK OF CODE FOR PROFILE -->
+            <!-- <?php 
             // Placeholder logic for profile photo
-            $profilePhoto = !empty($user['profile_photo']) && file_exists('uploads/' . $user['profile_photo']) 
-                ? 'uploads/' . $user['profile_photo'] 
-                : 'assets/img/placeholder-circle.png'; 
-            ?>
-            <img src="<?= $profilePhoto ?>" alt="Photo de Profil" class="profile-img">
+            // $profilePhoto = !empty($user['profile_photo']) && file_exists('profile_img/' . $user['profile_photo']) 
+            //     ? 'profile_img/' . $user['profile_photo'] 
+            //     : 'assets/img/placeholder-circle.png'; 
+            // ?>
+            <img src="<?= $profilePhoto ?>" alt="Photo de Profil" class="profile-img"> -->
+            <!-- OLD BLOCK OF CODE FOR PROFILE -->
+
             <h3><?php echo $_SESSION['email']; ?></h3>
             <p>No rating yet</p>
 
             <div>
                 <?php 
                     // Database connection
-                    $bdd = new PDO('mysql:host=127.0.0.1;dbname=covago', 'root', 'root');
+                    $bdd = new PDO('mysql:host=mysql;port=3306;dbname=covago', 'root', 'root');
 
                     // ============================
                     // Fetch user basic information
@@ -234,7 +260,7 @@
                             journey.dateTravel, 
                             journey.nbPlaces, 
                             journey.heureDep,
-                            (SELECT COUNT(*) FROM bookings WHERE bookings.journey_id = journey.id) AS passengers_booked
+                            (SELECT SUM(seats_booked) FROM bookings WHERE bookings.journey_id = journey.id) AS passengers_booked
                         FROM journey
                         WHERE journey.emailChauffeur = :email
                     ";
@@ -284,8 +310,8 @@
                         if ($bookingStmt->rowCount() > 0) {
                             echo "<h5>Passagers réservés:</h5><ul>";
                             while ($passenger = $bookingStmt->fetch()) {
-                                echo "<li><strong>Email:</strong> " . htmlspecialchars($passenger['email']) . " | ";
-                                echo "<strong>Téléphone:</strong> " . htmlspecialchars($passenger['phoneNumber']) . "</li>";
+                                echo "<li><strong>Email:</strong> " . htmlspecialchars($passenger['email'], ENT_QUOTES, 'UTF-8') . " | ";
+                                echo "<strong>Téléphone:</strong> " . htmlspecialchars($passenger['phoneNumber'], ENT_QUOTES, 'UTF-8') . "</li>";
                             }
                             echo "</ul>";
                         } else {
@@ -323,9 +349,11 @@
                     journey.lieuArriv,
                     journey.dateTravel,
                     journey.heureDep,
-                    journey.nbPlaces
+                    journey.nbPlaces,
+                    users.phoneNumber
                 FROM bookings
-                INNER JOIN journey ON bookings.journey_id = journey.id
+                INNER JOIN journey ON bookings.journey_id = journey.id 
+                INNER JOIN users ON users.email = journey.emailChauffeur
                 WHERE bookings.user_id = :user_id
             ";
             $bookedStmt = $bdd->prepare($bookedQuery);
@@ -345,6 +373,7 @@
                             <li><strong>Pour:</strong> <?= $booking['lieuArriv']; ?></li>
                             <li><strong>Date de départ:</strong> <?= $booking['dateTravel']; ?></li>
                             <li><strong>Heure de départ:</strong> <?= $booking['heureDep']; ?></li>
+                            <li><strong>Numero du chauffeur:</strong> <?= $booking['phoneNumber']; ?></li>
                             <li><strong>Places réservées:</strong> <?= $booking['seats_booked']; ?></li>
                         </ul>
                         <!-- Edit and Cancel Buttons -->
@@ -362,7 +391,7 @@
                                 <button type="submit" class="btn btn-danger">Annuler</button>
                             </form>
                             <?php } else { ?>
-                                <span style="color: red;">Non annulable (moins de 48h)</span>
+                                <span style="color: red;">Impossible d'annuler le voyage à 48h du départ</span>
                             <?php } ?>
                         </div>
                     </div>
@@ -388,7 +417,7 @@
                     journey.lieuArriv,
                     journey.dateTravel,
                     journey.nbPlaces,
-                    (SELECT COUNT(*) FROM bookings WHERE bookings.journey_id = journey.id) AS passengers_booked
+                    (SELECT SUM(seats_booked) FROM bookings WHERE bookings.journey_id = journey.id) AS passengers_booked
                 FROM journey
                 WHERE journey.emailChauffeur = :email
             ";
@@ -407,33 +436,31 @@
                             <li><strong>Pour:</strong> <?= $driverJourney['lieuArriv']; ?></li>
                             <li><strong>Date de départ:</strong> <?= $driverJourney['dateTravel']; ?></li>
                             <li><strong>Places disponibles:</strong> <?= $driverJourney['nbPlaces']; ?></li>
-                            <li><strong>Réservations:</strong> <?= $driverJourney['passengers_booked']; ?></li>
+                            <li><strong>Réservations:</strong> <?= $driverJourney['passengers_booked']; ?> places</li>
                         </ul>
                         <div class="items-link">
                             <?php if ($driverJourney['passengers_booked'] == 0) { ?>
-
                                 <!-- Edit Button with Modal Trigger -->
                                 <button type="button" class="btn btn-primary" 
                                     onclick="openEditJourneyModal(
-                                        <?= $driverJourney['journey_id']; ?>,
-                                        <?= $driverJourney['nbPlaces']; ?>,
-                                        '<?= htmlspecialchars($driverJourney['dateTravel']); ?>',
-                                        '<?= htmlspecialchars($driverJourney['heureDep']); ?>',
-                                        '<?= htmlspecialchars($driverJourney['lieuDep']); ?>',
-                                        '<?= htmlspecialchars($driverJourney['lieuArriv']); ?>'
+                                        <?= htmlspecialchars($driverJourney['journey_id'] ?? '', ENT_QUOTES, 'UTF-8'); ?>,
+                                        <?= htmlspecialchars($driverJourney['nbPlaces'] ?? '', ENT_QUOTES, 'UTF-8'); ?>,
+                                        '<?= htmlspecialchars($driverJourney['dateTravel'] ?? '', ENT_QUOTES, 'UTF-8'); ?>',
+                                        '<?= htmlspecialchars($driverJourney['heureDep'] ?? '', ENT_QUOTES, 'UTF-8'); ?>',
+                                        '<?= htmlspecialchars($driverJourney['lieuDep'] ?? '', ENT_QUOTES, 'UTF-8'); ?>',
+                                        '<?= htmlspecialchars($driverJourney['lieuArriv'] ?? '', ENT_QUOTES, 'UTF-8'); ?>'
                                     )">
                                     Modifier
                                 </button>
-
-
                                 <form action="index.php?page=cancel_journey" method="POST" style="display: inline;">
-                                    <input type="hidden" name="journey_id" value="<?= $driverJourney['journey_id']; ?>">
+                                    <input type="hidden" name="journey_id" value="<?= htmlspecialchars($driverJourney['journey_id'], ENT_QUOTES, 'UTF-8'); ?>">
                                     <button type="submit" class="btn btn-danger">Annuler</button>
                                 </form>
                             <?php } else { ?>
                                 <span style="color: red;">Modification impossible (réservations existantes)</span>
                             <?php } ?>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -554,16 +581,20 @@
 
 // // --------------------------- Javascript to manage input sugestions --------------------------
     
-    document.getElementById("lieuDep").addEventListener("input", function () {
-        const inputElement = this;
-        const suggestionBox = document.getElementById("depSuggestions");
-        showSuggestions(inputElement, suggestionBox);
+    // Prevent hiding suggestions when clicking inside input or suggestion box
+    document.getElementById("lieuDep").addEventListener("click", (event) => {
+        event.stopPropagation();
+    });
+    document.getElementById("lieuArriv").addEventListener("click", (event) => {
+        event.stopPropagation();
     });
     
-    document.getElementById("lieuArriv").addEventListener("input", function () {
-        const inputElement = this;
-        const suggestionBox = document.getElementById("arrivSuggestions");
-        showSuggestions(inputElement, suggestionBox);
+    // Prevent the modal suggestions from hiding too
+    document.getElementById("editDepSuggestions").addEventListener("click", (event) => {
+        event.stopPropagation();
     });
-    
+    document.getElementById("editArrivSuggestions").addEventListener("click", (event) => {
+        event.stopPropagation();
+    });
+
 </script>
