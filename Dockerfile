@@ -29,9 +29,15 @@ COPY php.ini /usr/local/etc/php/php.ini
 # Copy the application files to the working directory
 COPY . /var/www/html
 
+# Ensure the uploads directory retains 777 permissions
+RUN chmod -R 777 /var/www/html/uploads
+
 # Set permissions for the application files
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html
+
+# Ensure the uploads directory is owned by www-data
+RUN chown -R www-data:www-data /var/www/html/uploads
 
 # Expose the port the application runs on
 EXPOSE 9000
