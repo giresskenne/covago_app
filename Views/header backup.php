@@ -84,7 +84,7 @@
                     <div class="col-lg-3 col-md-2">
                         <!-- Logo -->
                         <div class="logo">
-                            <a href="#"><img src="assets/img/logo_fond_blanc.jpg" alt="" width=105 height=65></a>
+                            <a href="index.php?page=accueil"><img src="assets/img/logo_fond_blanc.jpg" alt="" width=105 height=65></a>
                         </div>
                     </div>
                     <div class="col-lg-9 col-md-9">
@@ -115,7 +115,7 @@
                             <div class="header-btn d-none f-right d-lg-block">
                                 <a href="#" class="btn head-btn1" style="font-size:25px";><?= $tailleEmail[0] ?></a>
                                 <a href="index.php?page=profil" class="btn head-btn1" style="font-size: 20px;">Profil</a>
-                                <a href="index.php?page=deconnection" style="color: #38B6FF;">Deconnection</a>
+                                <a href="index.php?page=deconnection" style="color: #38B6FF;">Déconnexion</a>
                             </div>
                             <?php } else { ?>
                             <div class="header-btn d-none f-right d-lg-block">

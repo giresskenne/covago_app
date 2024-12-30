@@ -230,11 +230,11 @@ if ($email) {
                     // ============================
                     // Display basic user information
                     // ============================
-                    echo "<strong>Passenger account:</strong> " . ($userBaseData['user_id'] ?? 'N/A') . "<br>";
-                    echo "<strong>Driver account:</strong> " . ($journeyData['journey_id'] ?? 'No journey posted') . "<br>";
+                    echo "<strong>Compte utilisateur:</strong> " . ($userBaseData['user_id'] ?? 'N/A') . "<br>";
+                    echo "<strong>Compte chauffeur:</strong> " . ($journeyData['journey_id'] ?? 'No journey posted') . "<br>";
                     echo "<strong>Téléphone:</strong> " . ($userBaseData['phoneNumber'] ?? 'Non disponible') . "<br>";
                     if (!empty($journeyData['dateTravel'])) {
-                        echo "<strong>Journey valid until:</strong> " . $journeyData['dateTravel'];
+                        echo "<strong>Voyage valide jusqu'au:</strong> " . $journeyData['dateTravel'];
                     }
                 ?>
             </div>
@@ -457,7 +457,7 @@ if ($email) {
                                     <button type="submit" class="btn btn-danger">Annuler</button>
                                 </form>
                             <?php } else { ?>
-                                <span style="color: red;">Modification impossible (réservations existantes)</span>
+                                <span style="color: red;">Modification impossible (des personnes ont déja reservé)</span>
                             <?php } ?>
                         </div>
 

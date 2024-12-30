@@ -101,13 +101,12 @@
     <div class="slider-area">
         <!-- Mobile Menu -->
         <div class="slider-active">
-            <div class="single-slider slider-height d-flex align-items-center" data-background="assets/img/hero/istockphoto-492310846-612x612.jpg">
+            <div class="single-slider slider-height d-flex align-items-center" data-background="assets/img/hero/roadside2.png">
                 <div class="container">
                     <div class="row">
                         <div class="col-xl-6 col-lg-9 col-md-10">
                             <div class="hero__caption">
-                                <h2 style="color:white">Retrouvez des vehicules personnels pour vos voyages ou que vous 
-                                    soyez c'est simple dites:</h2><br>
+                                <h2 style="color:white">Faites de l'auto-stop de façon plus sûre et plus sécurisante</h2><br>
                             </div>
                         </div>
                     </div>
@@ -120,7 +119,7 @@
                                 <div class="select-form">
                                     <div class="select-itms" style="position: relative;">
                                         <!-- Input for Departure -->
-                                        <input type="text" name="lieuDep" id="lieuDep" placeholder="Où vous trouvez-vous ?" 
+                                        <input type="text" name="lieuDep" id="lieuDep" placeholder="Départ" 
                                             oninput="showSuggestions(this.value, 'depSuggestions')" autocomplete="off" />
                                         <!-- Suggestions Container -->
                                         <div id="depSuggestions" class="suggestions"></div>
@@ -130,7 +129,7 @@
                                 <div class="select-form">
                                     <div class="select-itms" style="position: relative;">
                                         <!-- Input for Arrival -->
-                                        <input type="text" name="lieuArriv" id="lieuArriv" placeholder="Où vous rendez-vous ?" 
+                                        <input type="text" name="lieuArriv" id="lieuArriv" placeholder="Destination" 
                                             oninput="showSuggestions(this.value, 'arrivSuggestions')" autocomplete="off" />
                                         <!-- Suggestions Container -->
                                         <div id="arrivSuggestions" class="suggestions"></div>
@@ -178,15 +177,6 @@
                             $DatePoste = $resultat["postDate"];
                             $datePost = strtotime($DatePoste);
                             $DiffDate = abs(($dateN) - ($datePost));
-            
-                            /*$retour = array();
-                            $retour['second'] = $DiffDate % 60;
-                            $DiffDate = floor(($DiffDate - $retour['second']) / 60);
-                            $retour['minute'] = $DiffDate % 60;
-                            $DiffDate = floor(($DiffDate - $retour['minute']) / 60);
-                            $retour['hour'] = $DiffDate % 24;
-                            $DiffDate = floor(($DiffDate - $retour['hour']) / 24);
-                            $retour['day'] = $DiffDate;*/
                             ?>
                                 <div class="single-job-items mb-30">
                                     <div class="job-items">
@@ -204,7 +194,7 @@
                                         </div>
                                     </div>
                                     <div class="items-link items-link2 f-right">
-                                        <?="<a href=index.php?page=details&amp;id=$id>Voir les details</a>"; ?>
+                                        <?="<a href=index.php?page=details&amp;id=$id>Voir les détails</a>"; ?>
                                     </div>                                  
                                 </div><hr>
                                 <?php }?> 
@@ -237,7 +227,7 @@
                                 <span class="flaticon-search"></span>
                             </div>
                             <div class="process-cap">
-                               <h5>1. Creer un compte</h5></br></br>
+                               <h5>1. Créer un compte</h5></br></br>
                                <p></p>
                             </div>
                         </div>
@@ -294,12 +284,12 @@
                                     <div class="testimonial-founder  ">
                                         <div class="founder-img mb-30">
                                             <img src="assets/img/Sans titre2.jpg" alt="">
-                                            <span>User </span> 
+                                            <span>Achille K.</span> 
                                             <p><?= $dateComment; ?></p>
                                         </div>
                                     </div>
                                     <div class="testimonial-top-cap">
-                                        <p>“kkkkkk<?= $message; ?>”</p>
+                                        <p>“<?= $message; ?>”</p>
                                     </div>
                                 </div>
                             </div>

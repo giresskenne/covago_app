@@ -133,4 +133,4 @@ INSERT INTO `ratings` (`user_id`, `journey_id`, `rating`, `review`) VALUES
 
 -- Notifications
 INSERT INTO `notifications` (`user_id`, `message`) VALUES
-(1, 'Your booking has been confirmed.');
+(1, 'Enfin un service qui, m’éviteras les sabots de la commune du rond-point deido.');
