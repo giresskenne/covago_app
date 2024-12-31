@@ -1,87 +1,145 @@
-<!doctype html>
-<html class="no-js" lang="zxx">
-    <?php include('header.php'); ?>
-    <head>
-    </head>
-    <!-- Hero Area Start-->
-     
-               
-    <!-- ================ contact section end ================= -->
-    <script src="assets/js/vendor/modernizr-3.5.0.min.js"></script>
-		<!-- Jquery, Popper, Bootstrap -->
-		<script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
-        <script src="assets/js/popper.min.js"></script>
-        <script src="assets/js/bootstrap.min.js"></script>
-	    <!-- Jquery Mobile Menu -->
-        <script src="assets/js/jquery.slicknav.min.js"></script>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <style>
+        @font-face {
+            font-family: 'Orkney';
+            src: url('../assets/fonts/orkney/orkney-regular-webfont.woff2') format('woff2'),
+                 url('../assets/fonts/orkney/orkney-regular-webfont.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
 
-		<!-- Jquery Slick , Owl-Carousel Plugins -->
-        <script src="assets/js/owl.carousel.min.js"></script>
-        <script src="assets/js/slick.min.js"></script>
-        <script src="assets/js/price_rangs.js"></script>
-        
-		<!-- One Page, Animated-HeadLin -->
-        <script src="assets/js/wow.min.js"></script>
-		<script src="assets/js/animated.headline.js"></script>
-        <script src="assets/js/jquery.magnific-popup.js"></script>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Orkney', sans-serif;
+        }
 
-		<!-- Scrollup, nice-select, sticky -->
-        <script src="assets/js/jquery.scrollUp.min.js"></script>
-        <script src="assets/js/jquery.nice-select.min.js"></script>
-		<script src="assets/js/jquery.sticky.js"></script>
-        
-        <!-- contact js
-        <script src="assets/js/contact.js"></script>--> 
-        <script src="assets/js/jquery.form.js"></script>
-        <script src="assets/js/jquery.validate.min.js"></script>
-        <script src="assets/js/mail-script.js"></script>
-        <script src="assets/js/jquery.ajaxchimp.min.js"></script>
-        
-		<!-- Jquery Plugins, main Jquery -->	
-        <script src="assets/js/plugins.js"></script>
-        <script src="assets/js/main.js"></script>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(to bottom right, #38b6ff, #7ed957);
+        }
 
+        .container {
+            width: 350px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+        }
 
+        .container h2 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4c306d;
+            margin-bottom: 20px;
+        }
 
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 14px;
+        }
 
+        .btn-primary {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: #38b6ff;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
 
-        <!--    -->
+        .btn-primary:hover {
+            background: #2a92d9;
+        }
 
-        <!-- MultiStep Form -->
- 
-<div class="container-fluid" id="grad1">
-    <div class="row justify-content-center mt-0">
-        <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
-            <div class="card px-0 pt-4 pb-0 mt-3 mb-3"> 
-                <h2><strong>Se connecter</strong></h2>
-                <?php 
-                            if (isset($_GET["error"]) && !empty($_GET["error"])) {
-                                echo '<h5 style=color:red;>'.$_GET["error"] .'</h5>';
-                            } ?>
-                <div class="row">
-                    <div class="col-md-12 mx-0">
-                        <form id="msform" method="POST" action="index.php?page=connexion_process">
-                            <!-- progressbar -->
-                            
-                            <!-- fieldsets --> 
-                            <fieldset>
-                                <div class="form-card">
-     
-                        <input class="form-control" name="email" id="subject" type="email" required onfocus="this.placeholder = ''" onblur="this.placeholder = 'Entrez votre adresse email'" placeholder="Entrez votre adresse email">
-                        <input class="form-control" name="passwordUser" id="subject" type="password" required onfocus="this.placeholder = ''" onblur="this.placeholder = 'Entrez votre mot de passe '" placeholder="Entrez votre mot de passe">
-                        <input type="submit" name="next" id ="Soumettre"  value="Se connecter"/>  
-                        <a href="index.php?page=registration" 
-                                style="color:blue;margin-left:30px;">Creer un compte</a>
-                    </div>
-                                
-                            </fieldset>
-                        </form>
-                    </div>
-                </div>
+        .login-options {
+            margin: 15px 0;
+            font-size: 14px;
+            color: #999;
+        }
+
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-button {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .social-button img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .social-button:hover {
+            background: #f0f0f0;
+        }
+
+        .signup-link {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #4c306d;
+            text-decoration: none;
+            font-weight: bold;
+            display: block;
+        }
+
+        .signup-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Se connecter</h2>
+        <?php 
+        if (isset($_GET["error"]) && !empty($_GET["error"])) {
+            echo '<h5 style="color:red;">'.$_GET["error"].'</h5>';
+        } ?>
+        <form id="msform" method="POST" action="index.php?page=connexion_process">
+            <input type="email" name="email" class="input-field" placeholder="Entrez votre adresse email" required>
+            <input type="password" name="passwordUser" class="input-field" placeholder="Entrez votre mot de passe" required>
+            <button type="submit" class="btn-primary">Se connecter</button>
+        </form>
+        <div class="login-options">Ou connectez-vous avec</div>
+        <div class="social-buttons">
+            <div class="social-button">
+                <img src="https://img.icons8.com/color/48/facebook-circled--v1.png" alt="Facebook">
+            </div>
+            <div class="social-button">
+                <img src="https://img.icons8.com/color/48/google-logo.png" alt="Google">
             </div>
         </div>
+        <a href="index.php?page=registration" class="signup-link">Créer un compte</a>
     </div>
-</div>
-    </body>
-    
-    </html>
+</body>
+</html>

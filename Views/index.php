@@ -1,100 +1,7 @@
 <!doctype html>
 <html class="no-js" lang="zxx">
 <?php include('header.php'); ?>
-<style>
-    .vehicle-image {
-        width: 100%;
-        height: auto;
-        max-width: 80px;
-        max-height: 80px;
-    }
-
-    /* Suggestions box styling */
-    .suggestions {
-        position: absolute;
-        z-index: 9999;
-        background: #fff;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        max-height: 150px;
-        overflow-y: auto;
-        width: 100%; /* Match the width of the input field */
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        display: none;
-    }
-
-    .suggestions div {
-        padding: 8px;
-        cursor: pointer;
-    }
-
-    .suggestions div:hover {
-        background-color: #f0f0f0;
-    }
-
-    /* Ensure input fields align well within their container */
-    .select-itms input {
-        width: 100%;
-        max-width: 400px;
-        padding: 15px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-shadow: none;
-    }
-
-    .select-form {
-        margin-bottom: 10px; /* Add space below each input field */
-    }
-
-    .search-form {
-        margin-top: 10px; /* Add space above the "Chercher" button */
-    }
-
-/* Flex container for aligning items horizontally */
-.form-container {
-    display: flex;
-    align-items: center;
-    gap: 10px; /* Adjust the gap between elements as needed */
-}
-
-/* Ensure input fields and button take full available space */
-.select-itms input,
-.search-form input {
-    flex: 1; /* Make them take equal space */
-    width: 100%; /* Ensure full width */
-    max-width: 100%; /* Ensure max width matches container */
-    padding: 15px; /* Ensure consistent padding */
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-shadow: none;
-}
-
-/* Button styling */
-.button1 {
-    background: #38B6FF;
-    font-size: 20px;
-    line-height: 1;
-    text-align: center;
-    color: #fff;
-    display: block;
-    padding: 10px;
-    border-radius: 4px;
-    text-transform: capitalize;
-    border: 0px #38B6FF;
-    font-family: 'Muli', sans-serif;
-    letter-spacing: 0.1em;
-    line-height: 1.2;
-    height: 58px; /* Match input height for better alignment */
-    width: 100%; /* Ensure full width */
-}
-
-/* Remove margin from search form to align properly */
-.search-form {
-    flex: 1;
-    margin-top: 0; /* Remove top margin */
-}
-
-</style>
+<link rel="stylesheet" href="style.css">
 <main>
 
     <!-- slider Area Start-->
@@ -103,43 +10,30 @@
         <div class="slider-active">
             <div class="single-slider slider-height d-flex align-items-center" data-background="assets/img/hero/roadside2.png">
                 <div class="container">
-                    <div class="row">
-                        <div class="col-xl-6 col-lg-9 col-md-10">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-6 col-lg-9 col-md-10 text-center">
                             <div class="hero__caption">
                                 <h2 style="color:white">Faites de l'auto-stop de façon plus sûre et plus sécurisante</h2><br>
                             </div>
-                        </div>
-                    </div>
-                    <!-- Search Box -->
-                    <div class="row">
-                        <div class="col-xl-8">
-                            <!-- form -->
-                            <form class="search-box form-container" action="index.php?page=search" method="POST">
-                                <!-- Input field for departure -->
-                                <div class="select-form">
-                                    <div class="select-itms" style="position: relative;">
-                                        <!-- Input for Departure -->
-                                        <input type="text" name="lieuDep" id="lieuDep" placeholder="Départ" 
-                                            oninput="showSuggestions(this.value, 'depSuggestions')" autocomplete="off" />
-                                        <!-- Suggestions Container -->
+                            <div class="container">
+                                <form class="container" action="index.php?page=search" method="POST" style="background: #fff; border-radius: 15px; padding: 30px; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); max-width: 400px;">
+                                    <h2 class="form-heading" style="font-size: 24px; font-weight: bold; color: #4c306d; margin-bottom: 20px;">Rechercher un trajet</h2>
+                                    <!-- Input field for departure -->
+                                    <div style="margin-bottom: 15px;">
+                                        <input type="text" name="lieuDep" id="lieuDep" class="input-field" placeholder="Départ" 
+                                            oninput="showSuggestions(this.value, 'depSuggestions')" autocomplete="off" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; font-size: 14px;">
                                         <div id="depSuggestions" class="suggestions"></div>
                                     </div>
-                                </div>
-                                <!-- Input field for arrival -->
-                                <div class="select-form">
-                                    <div class="select-itms" style="position: relative;">
-                                        <!-- Input for Arrival -->
-                                        <input type="text" name="lieuArriv" id="lieuArriv" placeholder="Destination" 
-                                            oninput="showSuggestions(this.value, 'arrivSuggestions')" autocomplete="off" />
-                                        <!-- Suggestions Container -->
+                                    <!-- Input field for arrival -->
+                                    <div style="margin-bottom: 20px;">
+                                        <input type="text" name="lieuArriv" id="lieuArriv" class="input-field" placeholder="Destination" 
+                                            oninput="showSuggestions(this.value, 'arrivSuggestions')" autocomplete="off" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; font-size: 14px;">
                                         <div id="arrivSuggestions" class="suggestions"></div>
                                     </div>
-                                </div>
-                                <!-- Search Button -->
-                                <div class="search-form">
-                                    <input type="submit" id="search" value="Chercher" class="button1"> 
-                                </div>
-                            </form>
+                                    <!-- Search Button -->
+                                    <button type="submit" id="search" class="btn-primary" style="display: block; width: 100%; padding: 12px; background: #38B6FF; color: white; font-size: 16px; font-weight: bold; border: none; border-radius: 25px; cursor: pointer; transition: background 0.3s;">Chercher</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>

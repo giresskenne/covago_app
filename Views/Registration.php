@@ -1,147 +1,168 @@
-<!doctype html>
-<html class="no-js" lang="zxx">
-    <?php include('header.php'); ?>
-    <head>
-    </head>
-    <!-- Hero Area Start-->
-     
-               
-    <!-- ================ contact section end ================= -->
-    <script src="assets/js/vendor/modernizr-3.5.0.min.js"></script>
-		<!-- Jquery, Popper, Bootstrap -->
-		<script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
-        <script src="assets/js/popper.min.js"></script>
-        <script src="assets/js/bootstrap.min.js"></script>
-	    <!-- Jquery Mobile Menu -->
-        <script src="assets/js/jquery.slicknav.min.js"></script>
-
-		<!-- Jquery Slick , Owl-Carousel Plugins -->
-        <script src="assets/js/owl.carousel.min.js"></script>
-        <script src="assets/js/slick.min.js"></script>
-        <script src="assets/js/price_rangs.js"></script>
-        
-		<!-- One Page, Animated-HeadLin -->
-        <script src="assets/js/wow.min.js"></script>
-		<script src="assets/js/animated.headline.js"></script>
-        <script src="assets/js/jquery.magnific-popup.js"></script>
-
-		<!-- Scrollup, nice-select, sticky -->
-        <script src="assets/js/jquery.scrollUp.min.js"></script>
-        <script src="assets/js/jquery.nice-select.min.js"></script>
-		<script src="assets/js/jquery.sticky.js"></script>
-        
-        <!-- contact js
-        <script src="assets/js/contact.js"></script>--> 
-        <script src="assets/js/jquery.form.js"></script>
-        <script src="assets/js/jquery.validate.min.js"></script>
-        <script src="assets/js/mail-script.js"></script>
-        <script src="assets/js/jquery.ajaxchimp.min.js"></script>
-        
-		<!-- Jquery Plugins, main Jquery -->	
-        <script src="assets/js/plugins.js"></script>
-        <script src="assets/js/main.js"></script>
-
-
-
-
-
-        <!--    -->
-
-        <!-- MultiStep Form -->
- 
-        <div class="container-fluid" id="grad1">
-    <div class="row justify-content-center mt-0">
-        <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
-            <div class="card px-0 pt-4 pb-0 mt-3 mb-3"> 
-                <h2><strong>Créer un compte</strong></h2>
-                <p style="color:red"><i>Veuillez remplir tous les champs s'il vous plaît!</i></p>
-                <div class="row">
-                    <div class="col-md-12 mx-0">
-                        <p style="color:"><?php if (!empty($_GET["message"])) echo $_GET["message"]; ?> 
-                            <a style="color:#7de957" href="index.php?page=profil"></a>
-                        </p>
-                        <form id="msform" method="POST" action="index.php?page=registrationProcess">
-                            <fieldset>
-                                <div class="form-card">
-                                    <!-- Email Field -->
-                                    <input name="email" type="text" id="email" value="" 
-                                        placeholder="Exemple: utilisateur@email.com" required />
-                                    <i>
-                                        <p class="coments" style="color:red">
-                                            <?php if (!empty($_GET["emailError"])) echo $_GET["emailError"]; ?>
-                                        </p>
-                                    </i>
-                                    
-                                    <!-- Phone Number Field -->
-                                    <input name="phoneNumber" id="numero" type="number" 
-                                        placeholder="Exemple: 612345678" required>
-                                    <i>
-                                        <p class="coments" style="color:red">
-                                            <?php if (!empty($_GET["phoneNumberError"])) echo $_GET["phoneNumberError"]; ?>
-                                        </p>
-                                    </i>
-                                    
-                                    <!-- Password Field -->
-                                    <input name="passwordUser" id="pwd" type="password" 
-                                        placeholder="Entrez un mot de passe (min. 8 caractères)" required>
-                                    <i>
-                                        <p class="coments" style="color:red">
-                                            <?php if (!empty($_GET["passwordUserError"])) echo $_GET["passwordUserError"]; ?>
-                                        </p>
-                                    </i>
-                                    
-                                    <!-- Password Confirmation Field -->
-                                    <input name="passwordConfirm" id="pwdConfirm" type="password" 
-                                        placeholder="Confirmez votre mot de passe" required>
-                                    <i>
-                                        <p class="coments" style="color:red" id="passwordConfirmError"></p>
-                                    </i>
-
-                                    <!-- Terms and Conditions -->
-                                    <div class="custom-control custom-control-alternative custom-checkbox">
-                                        <input class="custom-control-input" id="customCheckRegister" type="checkbox" required>
-                                        <label class="custom-control-label" for="customCheckRegister">
-                                            <span>J'ai lu et accepte  
-                                                <a href="index.php?page=Cgu" class="text text-info">
-                                                    les conditions générales d'utilisation du site
-                                                </a>
-                                            </span>
-                                        </label>
-                                    </div>
-                                    <br><br>
-
-                                    <!-- Submit Button -->
-                                    <input type="submit" name="next" id="Soumettre" value="S'inscrire" 
-                                        style="width:100%;height:50px;background:#7de957;font-size:20px;line-height:1;
-                                        text-align:center;color:#fff;display:block;padding:15px;border-radius:0px;
-                                        text-transform:capitalize;" />  
-                                    <center>
-                                        <a href="index.php?page=connexion" style="color:#38B6FF;margin-left:30px;">Se connecter</a>
-                                    </center>
-                                </div>
-                            </fieldset>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    document.getElementById('msform').addEventListener('submit', function(event) {
-        const password = document.getElementById('pwd').value;
-        const passwordConfirm = document.getElementById('pwdConfirm').value;
-
-        // Clear any existing error
-        const errorElement = document.getElementById('passwordConfirmError');
-        errorElement.textContent = '';
-
-        // Check if passwords match
-        if (password !== passwordConfirm) {
-            errorElement.textContent = 'Les mots de passe ne correspondent pas!';
-            event.preventDefault(); // Stop form submission
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        @font-face {
+            font-family: 'Orkney';
+            src: url('../assets/fonts/orkney/orkney-regular-webfont.woff2') format('woff2'),
+                 url('../assets/fonts/orkney/orkney-regular-webfont.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
         }
-    });
-</script>
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Orkney', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(to bottom right, #38b6ff, #7ed957);
+        }
+
+        .container {
+            width: 350px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+        }
+
+        .container h2 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4c306d;
+            margin-bottom: 10px;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: #7ed957;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: #68c74b;
+        }
+
+        .login-link {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #38b6ff;
+            text-decoration: none;
+            font-weight: bold;
+            display: block;
+        }
+
+        .login-link:hover {
+            text-decoration: underline;
+        }
+
+        .terms {
+            font-size: 14px;
+            text-align: left;
+            margin-top: 15px;
+        }
+
+        .terms a {
+            color: #38b6ff;
+            text-decoration: none;
+        }
+
+        .terms a:hover {
+            text-decoration: underline;
+        }
+
+        .custom-control {
+            margin-top: 15px;
+        }
+
+        .custom-checkbox input {
+            margin-right: 10px;
+        }
+
+        .error-message {
+            color: red;
+            margin: 5px 0;
+            font-size: 13px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Créer un compte</h2>
+        <?php 
+        if (!empty($_GET["message"])) {
+            echo '<p class="error-message">'.$_GET["message"].'</p>';
+        } 
+        ?>
+        <form id="msform" method="POST" action="index.php?page=registrationProcess">
+            <input type="email" name="email" class="input-field" placeholder="Exemple: utilisateur@email.com" required>
+            <p class="error-message">
+                <?php if (!empty($_GET["emailError"])) echo $_GET["emailError"]; ?>
+            </p>
+            <input type="number" name="phoneNumber" class="input-field" placeholder="Exemple: 612345678" required>
+            <p class="error-message">
+                <?php if (!empty($_GET["phoneNumberError"])) echo $_GET["phoneNumberError"]; ?>
+            </p>
+            <input type="password" name="passwordUser" class="input-field" placeholder="Entrez un mot de passe (min. 8 caractères)" required>
+            <p class="error-message">
+                <?php if (!empty($_GET["passwordUserError"])) echo $_GET["passwordUserError"]; ?>
+            </p>
+            <input type="password" name="passwordConfirm" id="pwdConfirm" class="input-field" placeholder="Confirmez votre mot de passe" required>
+            <p id="passwordConfirmError" class="error-message"></p>
+            <div class="terms">
+                <input type="checkbox" required> J'ai lu et accepte <a href="index.php?page=Cgu">les conditions générales d'utilisation du site</a>
+            </div>
+            <button type="submit" class="btn-primary">S'inscrire</button>
+        </form>
+        <a href="index.php?page=connexion" class="login-link">Se connecter</a>
+    </div>
+
+    <script>
+        document.getElementById('msform').addEventListener('submit', function(event) {
+            const password = document.querySelector('[name="passwordUser"]').value;
+            const passwordConfirm = document.querySelector('[name="passwordConfirm"]').value;
+            const errorElement = document.getElementById('passwordConfirmError');
+            errorElement.textContent = '';
+            if (password !== passwordConfirm) {
+                errorElement.textContent = 'Les mots de passe ne correspondent pas!';
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
