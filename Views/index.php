@@ -1,7 +1,7 @@
 <!doctype html>
 <html class="no-js" lang="zxx">
 <?php include('header.php'); ?>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="assets/css/style_index.css">
 <main>
 
     <!-- slider Area Start-->

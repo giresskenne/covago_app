@@ -41,7 +41,7 @@ include('header.php');
         <div class="row">
             <div class="col-xl-12">
                 <div class="hero-cap text-center">
-                    <h2>Voici les détails concernant le voyage que vous avez sélectionné</h2>
+                    <h4>Voici les détails concernant le voyage que vous avez sélectionné</h4>
                 </div>
             </div>
         </div>
@@ -84,23 +84,23 @@ include('header.php');
                         </div>
 
                         <ul>
-                            <li>Date de depart : <span><?= $resultat['dateTravel']; ?></span></li>
-                            <li>Heure de depart : <span><?= $resultat['heureDep']; ?></span></li>
-                            <li>Lieu de depart : <span><?= $resultat['lieuDep']; ?></span></li>
+                            <li>Date de départ : <span><?= $resultat['dateTravel']; ?></span></li>
+                            <li>Heure de départ : <span><?= $resultat['heureDep']; ?></span></li>
+                            <li>Lieu de départ : <span><?= $resultat['lieuDep']; ?></span></li>
                             <li>Destination : <span><?= $resultat['lieuArriv']; ?></span></li>
-                            <li>Nombre de place : <span><?= $resultat['nbPlaces']; ?></span></li>
+                            <li>Nombre de place(s) : <span><?= $resultat['nbPlaces']; ?></span></li>
                             <li>Numero du chauffeur : <span>+237 <?= $phoneNumber; ?></span></li>
 
                             <div class="apply-btn2">
                                 <button class="btn book-btn" id="seeMore">Voir plus</button>
                             </div>
                             <div class="apart" style="display:none">
-                                <h3 style="color:#38B6FF">Infos concernant le vehicule</h3>
+                                <h3 style="color:#38B6FF">Infos concernant le véhicule</h3>
                                 <li>Marque : <span><?= $resultat['marque']; ?></span></li>
-                                <li>Modele : <span><?= $resultat['model']; ?></span></li>
+                                <li>Modèle : <span><?= $resultat['model']; ?></span></li>
                                 <li>Couleur : <span><?= $resultat['couleur']; ?></span></li>
                                 <li>Matricule : <span><?= $resultat['immat']; ?></span></li>
-                                <h3 style="color:#38B6FF">Images du vehicule</h3>
+                                <h3 style="color:#38B6FF">Images du véhicule</h3>
                                 <div class="row">
                                     <div class="col-m-3">
                                         <img src="uploads/<?= $resultat['photo_1']; ?>" class="vehicle-image" alt="1">

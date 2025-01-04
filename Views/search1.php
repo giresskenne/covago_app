@@ -94,7 +94,7 @@
                                                 <h4><span style="color:#fb246a">De</span> <?= $resultat['lieuDep']."<span style='color:#fb246a'> Pour</span> ".$resultat['lieuArriv']; ?></h4>
                                             </a>
                                             <ul>
-                                                <li><span>Depart prévu le</span> <span style="color:#fb246a"><?= $resultat['dateTravel']; ?><span/></li>
+                                                <li><span>Départ prévu le</span> <span style="color:#fb246a"><?= $resultat['dateTravel']; ?><span/></li>
                                                 <li><span> à </span><span style="color:#fb246a"><?= $resultat['heureDep']; ?><span/></li>
                                             </ul>
                                         </div>

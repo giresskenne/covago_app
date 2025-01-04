@@ -4,9 +4,17 @@
     <title>Publier un voyage c'est simple!</title>
     <link rel="stylesheet" href="assets/css/responsive_post_journey.css" type="text/css">
 </head>
-    <?php //session_start();
-     include('header.php'); 
-    ?>
+    <?php include('header.php'); ?>
+
+    <?php session_start(); ?>
+    <?php if (isset($_SESSION['notification'])): ?>
+        <div style="color:red; font-weight:bold; margin-bottom:20px;">
+            <h3><?= $_SESSION['notification']['title'] ?></h3>
+            <p><?= $_SESSION['notification']['message'] ?></p>
+        </div>
+        <?php unset($_SESSION['notification']); // Clear the notification ?>
+    <?php endif; ?>
+
     <!-- Hero Area Start-->
     
                 
@@ -70,39 +78,39 @@
 
                             <fieldset class="form-card0">   
                             <div class="form-card">
-  <h2 class="fs-title">Information concernant le voyage</h2>
-  <p id="oblig" style="color:red; margin-bottom: 20px;">
-    <i>Remplir tous ces champs pour passer à la prochaine étape</i>
-  </p>
-  <div class="row">
-    <div class="col-12">
-      <label for="lieuDep">Lieu de départ</label>
-      <select class="list-dt" id="lieuDep" name="lieuDep" required>
-        <option value="Yaoundé">Yaoundé</option>
-        <option value="Douala">Douala</option>
-        <option value="Bafoussam">Bafoussam</option>
-        <option value="Ngaroundere">Ngaroundere</option>
-        <option value="Bertoua">Bertoua</option>
-        <option value="Bamenda">Bamenda</option>
-        <option value="Buea">Buea</option>
-        <option value="Maroua">Maroua</option>
-        <option value="Garoua">Garoua</option>
-      </select>
+                                <h2 class="fs-title">Informations concernant le voyage</h2>
+                                <p id="oblig" style="color:red; margin-bottom: 20px;">
+                                  <i>Remplir tous ces champs pour passer à la prochaine étape</i>
+                                </p>
+                            <div class="row">
+                                <div class="col-12">
+                                  <label for="lieuDep">Lieu de départ</label>
+                                  <select class="list-dt" id="lieuDep" name="lieuDep" required>
+                                    <option value="Yaoundé">Yaoundé</option>
+                                    <option value="Douala">Douala</option>
+                                    <option value="Bafoussam">Bafoussam</option>
+                                    <option value="Ngaroundere">Ngaroundere</option>
+                                    <option value="Bertoua">Bertoua</option>
+                                    <option value="Bamenda">Bamenda</option>
+                                    <option value="Buea">Buea</option>
+                                    <option value="Maroua">Maroua</option>
+                                    <option value="Garoua">Garoua</option>
+                                  </select>
 
-      <label for="lieuArriv">Destination</label>
-      <select class="list-dt" id="lieuArriv" name="lieuArriv" required>
-        <option value="Yaoundé">Yaoundé</option>
-        <option value="Douala">Douala</option>
-        <option value="Bafoussam">Bafoussam</option>
-        <option value="Ngaroundere">Ngaroundere</option>
-        <option value="Bertoua">Bertoua</option>
-        <option value="Bamenda">Bamenda</option>
-        <option value="Buea">Buea</option>
-        <option value="Maroua">Maroua</option>
-        <option value="Garoua">Garoua</option>
-      </select>
-    </div>
-</div></br>
+                                  <label for="lieuArriv">Destination</label>
+                                  <select class="list-dt" id="lieuArriv" name="lieuArriv" required>
+                                    <option value="Yaoundé">Yaoundé</option>
+                                    <option value="Douala">Douala</option>
+                                    <option value="Bafoussam">Bafoussam</option>
+                                    <option value="Ngaroundere">Ngaroundere</option>
+                                    <option value="Bertoua">Bertoua</option>
+                                    <option value="Bamenda">Bamenda</option>
+                                    <option value="Buea">Buea</option>
+                                    <option value="Maroua">Maroua</option>
+                                    <option value="Garoua">Garoua</option>
+                                  </select>
+                                </div>
+                            </div></br>
 
                                     <label>Date de départ: </label>
                                         <input name="dateTravel" type="date" id="dateTravel" placeholder="Entrez la date de voyage" required>

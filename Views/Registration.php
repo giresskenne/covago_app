@@ -3,123 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/style_registration.css">
     <title>Sign Up</title>
-    <style>
-        @font-face {
-            font-family: 'Orkney';
-            src: url('../assets/fonts/orkney/orkney-regular-webfont.woff2') format('woff2'),
-                 url('../assets/fonts/orkney/orkney-regular-webfont.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Orkney', sans-serif;
-        }
-
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: linear-gradient(to bottom right, #38b6ff, #7ed957);
-        }
-
-        .container {
-            width: 350px;
-            background: #fff;
-            border-radius: 15px;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            text-align: center;
-        }
-
-        .container h2 {
-            font-size: 24px;
-            font-weight: bold;
-            color: #4c306d;
-            margin-bottom: 10px;
-        }
-
-        .error-message {
-            color: red;
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-
-        .input-field {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            font-size: 14px;
-        }
-
-        .btn-primary {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            background: #7ed957;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .btn-primary:hover {
-            background: #68c74b;
-        }
-
-        .login-link {
-            margin-top: 15px;
-            font-size: 14px;
-            color: #38b6ff;
-            text-decoration: none;
-            font-weight: bold;
-            display: block;
-        }
-
-        .login-link:hover {
-            text-decoration: underline;
-        }
-
-        .terms {
-            font-size: 14px;
-            text-align: left;
-            margin-top: 15px;
-        }
-
-        .terms a {
-            color: #38b6ff;
-            text-decoration: none;
-        }
-
-        .terms a:hover {
-            text-decoration: underline;
-        }
-
-        .custom-control {
-            margin-top: 15px;
-        }
-
-        .custom-checkbox input {
-            margin-right: 10px;
-        }
-
-        .error-message {
-            color: red;
-            margin: 5px 0;
-            font-size: 13px;
-            text-align: left;
-        }
-    </style>
 </head>
 <body>
     <div class="container">
@@ -146,7 +31,7 @@
             <p id="passwordConfirmError" class="error-message"></p>
             <div class="terms">
                 <input type="checkbox" required> J'ai lu et accepte <a href="index.php?page=Cgu">les conditions générales d'utilisation du site</a>
-            </div>
+            </div><br>
             <button type="submit" class="btn-primary">S'inscrire</button>
         </form>
         <a href="index.php?page=connexion" class="login-link">Se connecter</a>
