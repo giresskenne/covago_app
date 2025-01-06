@@ -109,3 +109,11 @@ body {
 .signup-link:hover {
     text-decoration: underline;
 }
+
+fieldset {
+    display: none;
+}
+
+fieldset:first-of-type {
+    display: block;
+}

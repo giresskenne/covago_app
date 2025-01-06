@@ -1,0 +1,116 @@
+/* header.css */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Orkney', sans-serif;
+}
+
+.header-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-area .logo img {
+    height: 50px;
+}
+
+.header-area nav {
+    display: flex;
+    align-items: center;
+}
+
+.header-area nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.header-area nav ul li {
+    margin-left: 20px;
+}
+
+.header-area nav ul li a {
+    text-decoration: none;
+    font-size: 16px;
+    color: #333;
+    transition: color 0.3s;
+}
+
+.header-area nav ul li a:hover {
+    color: #38B6FF;
+}
+
+.header-area .menu-toggle {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .header-area nav ul {
+        display: none;
+        flex-direction: column;
+        background-color: #fff;
+        position: absolute;
+        top: 60px;
+        right: 30px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 200px;
+    }
+
+    .header-area nav ul.show {
+        display: flex;
+    }
+
+    .header-area nav ul li {
+        margin: 10px 0;
+        text-align: center;
+    }
+
+    .header-area .menu-toggle {
+        display: block;
+        cursor: pointer;
+        font-size: 24px;
+        color: #333;
+    }
+}
+
+/* Normal desktop :1200px. */
+@media (min-width: 1200px) and (max-width: 1500px) {
+
+
+}
+
+
+/* Normal desktop :992px. */
+@media (min-width: 992px) and (max-width: 1200px) {
+
+
+}
+
+ 
+/* Tablet desktop :768px. */
+@media (min-width: 768px) and (max-width: 991px) {
+
+
+}
+
+ 
+/* small mobile :320px. */
+@media (max-width: 767px) {
+
+ 
+}
+ 
+/* Large Mobile :480px. */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+.container {width:450px}
+ 
+}

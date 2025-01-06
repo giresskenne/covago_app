@@ -1,0 +1,140 @@
+@font-face {
+    font-family: 'Orkney';
+    src: url('../assets/fonts/orkney/orkney-regular-webfont.woff2') format('woff2'),
+         url('../assets/fonts/orkney/orkney-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Orkney', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    height: 100vh; /* Ensure the body takes up the full viewport height */
+    width: 100vw; /* Ensure the body takes up the full viewport width */
+    overflow: hidden; /* Prevent scrolling that reveals additional background */
+    background: linear-gradient(to bottom right, #38b6ff, #7ed957);
+}
+
+.container {
+    width: 90%;
+    max-width: 500px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    text-align: center;
+    margin: auto; /* Ensure proper centering */
+    overflow-y: auto; /* Allow scrolling within the container if content overflows */
+}
+
+.container h2 {
+    font-size: 24px;
+    color: #4c306d;
+    margin-bottom: 20px;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.input-field::placeholder {
+    color: #aaa;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 12px;
+    background: #38b6ff;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-primary:hover {
+    background: #7ed957;
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin: -5px 0 10px;
+    text-align: left;
+}
+
+fieldset {
+    display: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+fieldset:first-of-type {
+    display: block;
+}
+
+fieldset .form-title {
+    font-size: 20px;
+    color: #4c306d;
+    margin-bottom: 10px;
+}
+
+fieldset .form-instructions {
+    font-size: 14px;
+    color: #999;
+    margin-bottom: 20px;
+}
+
+fieldset .input-wrapper {
+    margin-bottom: 15px;
+}
+
+fieldset .input-wrapper label {
+    display: block;
+    font-size: 14px;
+    color: #4c306d;
+    margin-bottom: 5px;
+}
+
+fieldset .input-wrapper .error-message {
+    margin-top: 5px;
+}
+
+/* For tablets and larger devices */
+@media (min-width: 768px) {
+    .container {
+        width: 450px;
+    }
+}
+
+/* For desktops */
+@media (min-width: 1024px) {
+    .container {
+        width: 500px;
+    }
+
+    .btn-primary {
+        font-size: 18px;
+        padding: 14px;
+    }
+
+    label {
+        font-size: 16px;
+    }
+}

@@ -1,0 +1,213 @@
+@font-face {
+    font-family: 'Orkney';
+    src: url('../assets/fonts/orkney/orkney-regular-webfont.woff2') format('woff2'),
+         url('../assets/fonts/orkney/orkney-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Orkney', sans-serif;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom right, #38b6ff, #7ed957);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    padding: 20px;
+    overflow: hidden;
+}
+
+.container {
+    width: 90%;
+    max-width: 500px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    text-align: center;
+}
+
+.container h2 {
+    font-size: 24px;
+    color: #4c306d;
+    margin-bottom: 20px;
+}
+
+.input-field {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.input-field::placeholder {
+    color: #aaa;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 14px;
+    background: #38b6ff;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: 10px;
+}
+
+.btn-primary:hover {
+    background: #7ed957;
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin: -5px 0 10px;
+    text-align: left;
+}
+
+fieldset {
+    display: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+fieldset:first-of-type {
+    display: block;
+}
+
+fieldset label {
+    font-size: 16px;
+    color: #4c306d;
+    margin-bottom: 5px;
+    display: block;
+    text-align: left;
+}
+
+fieldset input,
+fieldset select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+fieldset input:focus,
+fieldset select:focus {
+    border-color: #7de957;
+    outline: none;
+}
+
+fieldset .form-title {
+    font-size: 20px;
+    color: #4c306d;
+    margin-bottom: 10px;
+}
+
+fieldset .form-instructions {
+    font-size: 14px;
+    color: #999;
+    margin-bottom: 20px;
+}
+
+/* Media Queries for Responsive Design */
+
+/* Normal desktop :1200px. */
+@media (min-width: 1200px) and (max-width: 1500px) {
+    .container {
+        max-width: 700px;
+    }
+}
+
+/* Normal desktop :992px. */
+@media (min-width: 992px) and (max-width: 1200px) {
+    .container {
+        max-width: 700px;
+    }
+}
+
+/* Tablet desktop :768px. */
+@media (min-width: 768px) and (max-width: 991px) {
+    .container {
+        max-width: 500px;
+    }
+}
+
+/* Small mobile :320px. */
+@media (max-width: 767px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .btn-primary {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    fieldset label {
+        font-size: 14px;
+    }
+
+    fieldset input,
+    fieldset select {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .error-message {
+        font-size: 12px;
+    }
+}
+
+/* Large Mobile :480px. */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+    .container {
+        width: 90%;
+    }
+
+    fieldset input,
+    fieldset select {
+        padding: 8px;
+        font-size: 14px;
+    }
+}
+
+/* Larger Image for Smaller Screens */
+@media (max-width: 767px) {
+    .container {
+        width: 100%;
+        max-width: 100%;
+        padding: 20px;
+        background-size: contain;
+    }
+
+    .container img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+    }
+}

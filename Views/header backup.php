@@ -58,7 +58,7 @@
                  body{
                     /*font-family:orkney;*/
                  }
-
+                 
             </style>
    </head>
 
@@ -84,7 +84,7 @@
                     <div class="col-lg-3 col-md-2">
                         <!-- Logo -->
                         <div class="logo">
-                            <a href="index.php?page=accueil"><img src="assets/img/logo_fond_blanc.jpg" alt="" width=105 height=65></a>
+                            <a href="#"><img src="assets/img/logo_fond_blanc.jpg" alt="" width=105 height=65></a>
                         </div>
                     </div>
                     <div class="col-lg-9 col-md-9">
@@ -96,38 +96,45 @@
                                         <li><a href="index.php">Accueil</a></li>
                                         <li><a href="index.php?page=voyages">Trouver un voyage</a></li>
                                         <?php 
-                                        if (isset($_SESSION["email"]) && !empty($_SESSION["email"])) {
+                                            if (isset($_SESSION["email"]) && !empty($_SESSION["email"])) { 
                                         ?>
-                                        <li><a href="index.php?page=publier">Publier un voyage</a></li>
+                                            <li><a href="index.php?page=publier">Publier un voyage</a></li>
+                                            <li><a href="index.php?page=profil" style="color: #38B6FF;">Profil</a></li>
+                                            <li><a href="index.php?page=deconnection" style="color: #38B6FF;">Deconnection</a></li>
                                         <?php } else { ?>
-                                        <li><a href="index.php?page=connexion">Publier un voyage</a></li>
+                                            <li><a href="index.php?page=connexion">Se connecter</a></li>
+                                            <li><a href="index.php?page=registration">Créer un compte</a></li>
                                         <?php } ?>
                                     </ul>
                                 </nav>
                             </div>
-
-                            
-                            <!-- Header-btn -->
-                            <?php 
-                            if (isset($_SESSION["email"]) && !empty($_SESSION["email"])) {
-                                $tailleEmail = $_SESSION["email"];
-                            ?>
-                            <div class="header-btn d-none f-right d-lg-block">
-                                <a href="#" class="btn head-btn1" style="font-size:25px";><?= $tailleEmail[0] ?></a>
-                                <a href="index.php?page=profil" class="btn head-btn1" style="font-size: 20px;">Profil</a>
-                                <a href="index.php?page=deconnection" style="color: #38B6FF;">Déconnexion</a>
+                            <!-- Mobile Menu for small screens -->
+                            <div class="mobile_menu d-block d-lg-none">
+                                <nav>
+                                    <ul id="navigation-mobile">
+                                        <!-- <li><a href="index.php">Accueil</a></li>
+                                        <li><a href="index.php?page=voyages">Trouver un voyage</a></li> -->
+                                        <?php if (isset($_SESSION["email"]) && !empty($_SESSION["email"])) { 
+                                                 $tailleEmail = $_SESSION["email"];                                              
+                                        ?>
+                                            <!-- <li><a href="index.php?page=publier">Publier un voyage</a></li> -->
+                                         <div class="header-btn d-none f-right d-lg-block">
+                                            <a href="#" class="btn head-btn1" style="font-size:25px";><?= $tailleEmail[0] ?></a>
+                                            <a href="index.php?page=profil">Profil</a>
+                                            <a href="index.php?page=deconnection" style="color: #38B6FF;">Deconnection</a>
+                                        </div>
+                                        <?php } else { ?>
+                                            <div class="header-btn d-none f-right d-lg-block">
+                                                <li><a href="index.php?page=connexion">Se connecter</a></li>
+                                                <li><a href="index.php?page=registration">Créer un compte</a></li>
+                                            </div>
+                                        <?php } ?>
+                                    </ul>
+                                </nav>
                             </div>
-                            <?php } else { ?>
-                            <div class="header-btn d-none f-right d-lg-block">
-                                <a href="index.php?page=connexion" class="btn head-btn1">Se connecter</a>
-                            </div>
-                            <div class="header-btn d-none f-right d-lg-block">
-                                <a href="index.php?page=registration" class="btn head-btn1">Créer un compte</a>
-                            </div>
-                            <?php } ?>
                         </div>
                     </div>
-                    <!-- Mobile Menu -->
+                    <!-- Mobile Menu Toggle -->
                     <div class="col-12">
                         <div class="mobile_menu d-block d-lg-none"></div>
                     </div>
@@ -135,6 +142,7 @@
             </div>
         </div>
     </div>
-    <!-- Header End -->
+<!-- Header End -->
+
     </header>
 </html>
