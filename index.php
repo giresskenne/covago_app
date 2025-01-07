@@ -23,7 +23,7 @@ if (isset($_GET["page"]) && !empty($_GET["page"])) {
         require('Views/post_journey.php');
     }
     if ($_GET["page"]=="registration") {
-        require('Views/registration.php');
+        require('Views/Registration.php');
     } 
     if ($_GET["page"]=="details" && isset($_GET["id"]) && !empty($_GET["id"])) {
        require('Views/journey_details.php');

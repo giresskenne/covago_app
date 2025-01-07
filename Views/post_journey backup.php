@@ -2,10 +2,19 @@
 <html class="no-js" lang="zxx">
 <head>
     <title>Publier un voyage c'est simple!</title>
+    <link rel="stylesheet" href="assets/css/responsive_post_journey.css" type="text/css">
 </head>
-    <?php //session_start();
-     include('header.php'); 
-    ?>
+    <?php include('header.php'); ?>
+
+    <?php session_start(); ?>
+    <?php if (isset($_SESSION['notification'])): ?>
+        <div style="color:red; font-weight:bold; margin-bottom:20px;">
+            <h3><?= $_SESSION['notification']['title'] ?></h3>
+            <p><?= $_SESSION['notification']['message'] ?></p>
+        </div>
+        <?php unset($_SESSION['notification']); // Clear the notification ?>
+    <?php endif; ?>
+
     <!-- Hero Area Start-->
     
                 
@@ -68,41 +77,41 @@
                         <form id="msform" enctype="multipart/form-data" method ="POST" action="index.php?page=post_process">
 
                             <fieldset class="form-card0">   
-                                <div class="form-card" style="">
-                                    <h2 class="fs-title">Information sur le voyage</h2></br>
-                                    <p id="oblig" style="color:red"><i> Remplir le formulaire au complet</i></p>
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <label class="pay">Lieu de depart</label>
-                                        </div>
-                                        <div class="col-9">
-                                            <select class="list-dt" id="month" name="lieuDep">
-                                            <option value="Yaoundé ">Yaoundé</option>
-                                            <option value="Douala">Douala</option>
-                                            <option value="Bafoussam">Bafoussam</option>
-                                            <option value="Ngaroundere">Ngaroundere</option>
-                                            <option value="Bertoua">Bertoua</option>
-                                            <option value="Bamenda">Bamenda</option>
-                                            <option value="Buea">Buea</option>
-                                            <option value="Maroua">Maroua</option>
-                                            <option value="Garoua">Garoua</option>
-                                            </select>
-                                            
-                                            <label class="pay">Destination</label>
-                                  
-                                            <select class="list-dt" id="month" name="lieuArriv">
-                                            <option value="Yaoundé ">Yaoundé</option>
-                                            <option value="Douala">Douala</option>
-                                            <option value="Bafoussam">Bafoussam</option>
-                                            <option value="Ngaroundere">Ngaroundere</option>
-                                            <option value="Bertoua">Bertoua</option>
-                                            <option value="Bamenda">Bamenda</option>
-                                            <option value="Buea">Buea</option>
-                                            <option value="Maroua">Maroua</option>
-                                            <option value="Garoua">Garoua</option>
-                                            </select>
-                                        </div>
-                                    </div></br>
+                            <div class="form-card">
+                                <h2 class="fs-title">Informations concernant le voyage</h2>
+                                <p id="oblig" style="color:red; margin-bottom: 20px;">
+                                  <i>Remplir tous ces champs pour passer à la prochaine étape</i>
+                                </p>
+                            <div class="row">
+                                <div class="col-12">
+                                  <label for="lieuDep">Lieu de départ</label>
+                                  <select class="list-dt" id="lieuDep" name="lieuDep" required>
+                                    <option value="Yaoundé">Yaoundé</option>
+                                    <option value="Douala">Douala</option>
+                                    <option value="Bafoussam">Bafoussam</option>
+                                    <option value="Ngaroundere">Ngaroundere</option>
+                                    <option value="Bertoua">Bertoua</option>
+                                    <option value="Bamenda">Bamenda</option>
+                                    <option value="Buea">Buea</option>
+                                    <option value="Maroua">Maroua</option>
+                                    <option value="Garoua">Garoua</option>
+                                  </select>
+
+                                  <label for="lieuArriv">Destination</label>
+                                  <select class="list-dt" id="lieuArriv" name="lieuArriv" required>
+                                    <option value="Yaoundé">Yaoundé</option>
+                                    <option value="Douala">Douala</option>
+                                    <option value="Bafoussam">Bafoussam</option>
+                                    <option value="Ngaroundere">Ngaroundere</option>
+                                    <option value="Bertoua">Bertoua</option>
+                                    <option value="Bamenda">Bamenda</option>
+                                    <option value="Buea">Buea</option>
+                                    <option value="Maroua">Maroua</option>
+                                    <option value="Garoua">Garoua</option>
+                                  </select>
+                                </div>
+                            </div></br>
+
                                     <label>Date de départ: </label>
                                         <input name="dateTravel" type="date" id="dateTravel" placeholder="Entrez la date de voyage" required>
                                         <p class="dateTravel" style="display:none;color:red"><i>Svp renseignez une date valide pour votre voyage</i></p>
@@ -159,57 +168,33 @@
                             <!-- New Confirmation Fieldset -->
                             <fieldset class="form-card3">
                                 <div class="form-card">
-                                    <h2 class="fs-title">Confirmer les informations</h2>
-                                    <p>
-                                        <strong>Lieu de départ:</strong> <span id="confirm-lieuDep"></span>
-                                        <button type="button" class="edit-button" data-target=".form-card0">Modifier</button>
-                                    </p>
-                                    <p>
-                                        <strong>Destination:</strong> <span id="confirm-lieuArriv"></span>
-                                        <button type="button" class="edit-button" data-target=".form-card0">Modifier</button>
-                                    </p>
-                                    <p>
-                                        <strong>Date de départ:</strong> <span id="confirm-dateTravel"></span>
-                                        <button type="button" class="edit-button" data-target=".form-card0">Modifier</button>
-                                    </p>
-                                    <p>
-                                        <strong>Heure de départ:</strong> <span id="confirm-heureDep"></span>
-                                        <button type="button" class="edit-button" data-target=".form-card0">Modifier</button>
-                                    </p>
-                                    <p>
-                                        <strong>Nombre de places:</strong> <span id="confirm-nbPlaces"></span>
-                                        <button type="button" class="edit-button" data-target=".form-card0">Modifier</button>
-                                    </p>
-                                    <p>
-                                        <strong>Immatriculation:</strong> <span id="confirm-immat"></span>
-                                        <button type="button" class="edit-button" data-target=".form-card1">Modifier</button>
-                                    </p>
-                                    <p>
-                                        <strong>Marque:</strong> <span id="confirm-marque"></span>
-                                        <button type="button" class="edit-button" data-target=".form-card1">Modifier</button>
-                                    </p>
-                                    <p>
-                                        <strong>Modèle:</strong> <span id="confirm-model"></span>
-                                        <button type="button" class="edit-button" data-target=".form-card1">Modifier</button>
-                                    </p>
-                                    <p>
-                                        <strong>Couleur:</strong> <span id="confirm-couleur"></span>
-                                        <button type="button" class="edit-button" data-target=".form-card1">Modifier</button>
-                                    </p>
-                                    <p>
-                                        <strong>Photos:</strong>
-                                        <button type="button" class="edit-button" data-target=".form-card2">Modifier</button>
-                                    </p>
-                                    <div>
-                                        <img id="confirm-photo1" style="max-width: 200px; display: none;" alt="Photo 1 Preview">
-                                        <img id="confirm-photo2" style="max-width: 200px; display: none;" alt="Photo 2 Preview">
-                                        <img id="confirm-photo3" style="max-width: 200px; display: none;" alt="Photo 3 Preview">
+                                    <h2 class="fs-title">Confirmez vos informations</h2></br>
+                                    <div id="confirmation-section">
+                                        <h3>Informations sur le Voyage:</h3>
+                                        <p><strong>Lieu de départ:</strong> <span id="confirm-lieuDep"></span></p>
+                                        <p><strong>Destination:</strong> <span id="confirm-lieuArriv"></span></p>
+                                        <p><strong>Date de départ:</strong> <span id="confirm-dateTravel"></span></p>
+                                        <p><strong>Heure de départ:</strong> <span id="confirm-heureDep"></span></p>
+                                        <p><strong>Nombre de places:</strong> <span id="confirm-nbPlaces"></span></p>
+
+                                        <h3>Informations sur le Véhicule:</h3>
+                                        <p><strong>Immatriculation:</strong> <span id="confirm-immat"></span></p>
+                                        <p><strong>Marque:</strong> <span id="confirm-marque"></span></p>
+                                        <p><strong>Modèle:</strong> <span id="confirm-model"></span></p>
+                                        <p><strong>Couleur:</strong> <span id="confirm-couleur"></span></p>
+
+                                        <div>
+                                            <img id="confirm-photo1" style="max-width: 200px; display: none;" alt="Photo 1 Preview">
+                                            <img id="confirm-photo2" style="max-width: 200px; display: none;" alt="Photo 2 Preview">
+                                            <img id="confirm-photo3" style="max-width: 200px; display: none;" alt="Photo 3 Preview">
+                                        </div>
                                     </div>
                                 </div>
-                                <input type="button" name="previous" class="previous" value="Précédent" style="width:100%;height:50px;background:#ccc;font-size:20px;line-height:1;text-align:center;color:#000;display:block;padding:15px;">
-                                <input type="submit" name="final_post" class="final_post" value="Publier" style="width:100%;height:50px;background:#7de957;font-size:20px;line-height:1;text-align:center;color:#fff;display:block;padding:15px;">
+                                <input type="button" name="previous" class="previous action-button-previous" value="Précédent" 
+                                style="width:100%;height:50px;font-size:20px;line-height:1;text-align:center;color:#fff;display:block;padding:15px;"/>
+                                <input type="submit" name="final_post" class="final_post" value="Confirmer et Publier" 
+                                       style="width:100%;height:50px;background:#7de957;font-size:20px;line-height:1;text-align:center;color:#fff;display:block;padding:15px;"/>
                             </fieldset>
-                                        
 
                             <!-- a verifier car affice l'icone "succes" en pied de page -->
                         </form>

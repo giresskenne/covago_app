@@ -1,12 +1,22 @@
 <?php
-// Start output buffering
-ob_start();
-
-// Retrieve session email (currently logged-in user)
+// Start session
 session_start();
+
+// Function to handle errors and keep the user on the same page
+function setError($title, $message) {
+    $_SESSION['notification'] = [
+        'title' => $title,
+        'message' => $message
+    ];
+}
+
+// Clear any existing notifications
+unset($_SESSION['notification']);
+
+// Ensure driver is logged in
 if (!isset($_SESSION['email'])) {
-    header('Location: login.php'); // Redirect to login page
-    exit();
+    setError('Erreur', 'Vous devez être connecté pour publier un voyage.');
+    // no redirection here, just fall through to the form display
 }
 
 $emailChauffeur = $_SESSION['email']; // Fetch email of logged-in user
@@ -36,80 +46,85 @@ $photo_2 = isset($_FILES["photo_2"]["name"]) ? $_FILES["photo_2"]["name"] : null
 $photo_3 = isset($_FILES["photo_3"]["name"]) ? $_FILES["photo_3"]["name"] : null;
 
 // Validate file types
-$allowed_extensions = array('jpg', 'jpeg', 'png', 'gif');
+$allowed_extensions = array('jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'svg', 'tiff');
 $photo_1_extension = strtolower(pathinfo($photo_1, PATHINFO_EXTENSION));
-$photo_2_extension = strtolower(pathinfo($photo_2, PATHINFO_EXTENSION));
-$photo_3_extension = strtolower(pathinfo($photo_3, PATHINFO_EXTENSION));
+$photo_2_extension = $photo_2 ? strtolower(pathinfo($photo_2, PATHINFO_EXTENSION)) : '';
+$photo_3_extension = $photo_3 ? strtolower(pathinfo($photo_3, PATHINFO_EXTENSION)) : '';
 
 if (!in_array($photo_1_extension, $allowed_extensions)) {
-    die("Invalid file type for photo 1. Only JPG, JPEG, PNG, and GIF files are allowed.");
+    setError('Erreur', "Type de fichier invalide pour la photo 1. Seuls les fichiers JPG, JPEG, PNG, GIF, BMP, WEBP, SVG et TIFF sont autorisés.");
+    // no redirection here, just fall through to the form display
 }
 if ($photo_2 && !in_array($photo_2_extension, $allowed_extensions)) {
-    die("Invalid file type for photo 2. Only JPG, JPEG, PNG, and GIF files are allowed.");
+    setError('Erreur', "Type de fichier invalide pour la photo 2. Seuls les fichiers JPG, JPEG, PNG, GIF, BMP, WEBP, SVG et TIFF sont autorisés.");
+    // no redirection here, just fall through to the form display
 }
 if ($photo_3 && !in_array($photo_3_extension, $allowed_extensions)) {
-    die("Invalid file type for photo 3. Only JPG, JPEG, PNG, and GIF files are allowed.");
+    setError('Erreur', "Type de fichier invalide pour la photo 3. Seuls les fichiers JPG, JPEG, PNG, GIF, BMP, WEBP, SVG et TIFF sont autorisés.");
+    // no redirection here, just fall through to the form display
 }
 
 // Ensure the first photo is uploaded
-if (!empty($_FILES["photo_1"]["tmp_name"])) {
+if (empty($_FILES["photo_1"]["tmp_name"])) {
+    setError('Erreur', "La première photo est obligatoire.");
+    // no redirection here, just fall through to the form display
+} else {
     if ($_FILES["photo_1"]["error"] === UPLOAD_ERR_OK) {
-        if (move_uploaded_file($_FILES["photo_1"]["tmp_name"], "$uploads_dir/$photo_1")) {
-            echo "File 1 uploaded successfully!";
-        } else {
-            echo "Failed to move uploaded file 1.";
+        if (!move_uploaded_file($_FILES["photo_1"]["tmp_name"], "$uploads_dir/$photo_1")) {
+            setError('Erreur', "Échec du téléchargement de la première photo.");
+            // no redirection here, just fall through to the form display
         }
     } else {
-        echo "Error uploading the first photo.";
+        setError('Erreur', "Erreur lors du téléchargement de la première photo.");
+        // no redirection here, just fall through to the form display
     }
-} else {
-    echo "The first photo is required.";
 }
 
 // Move optional photos if they are provided and valid
 if (!empty($_FILES["photo_2"]["tmp_name"]) && $_FILES["photo_2"]["error"] === UPLOAD_ERR_OK) {
-    if (move_uploaded_file($_FILES["photo_2"]["tmp_name"], "$uploads_dir/$photo_2")) {
-        echo "File 2 uploaded successfully!";
-    } else {
-        echo "Failed to move uploaded file 2.";
+    if (!move_uploaded_file($_FILES["photo_2"]["tmp_name"], "$uploads_dir/$photo_2")) {
+        setError('Erreur', "Échec du téléchargement de la photo 2.");
+        // no redirection here, just fall through to the form display
     }
 }
 if (!empty($_FILES["photo_3"]["tmp_name"]) && $_FILES["photo_3"]["error"] === UPLOAD_ERR_OK) {
-    if (move_uploaded_file($_FILES["photo_3"]["tmp_name"], "$uploads_dir/$photo_3")) {
-        echo "File 3 uploaded successfully!";
-    } else {
-        echo "Failed to move uploaded file 3.";
+    if (!move_uploaded_file($_FILES["photo_3"]["tmp_name"], "$uploads_dir/$photo_3")) {
+        setError('Erreur', "Échec du téléchargement de la photo 3.");
+        // no redirection here, just fall through to the form display
     }
 }
 
-// Insert the journey into the database
-$req = $bdd->prepare("
-    INSERT INTO journey (immat, marque, model, couleur, nbPlaces, 
-    dateTravel, lieuDep, lieuArriv, photo_1, photo_2, photo_3, postDate, heureDep, emailChauffeur) 
-    VALUES (:immat, :marque, :model, :couleur, :nbPlaces, :dateTravel, :lieuDep, :lieuArriv, :photo_1, :photo_2, :photo_3, :postDate, :heureDep, :emailChauffeur)
-");
-$req->execute(array(
-    'immat' => $immat,
-    'marque' => $marque,
-    'model' => $model,
-    'couleur' => $couleur,
-    'nbPlaces' => $nbPlaces,
-    'dateTravel' => $dateTravel,
-    'lieuDep' => $lieuDep,
-    'lieuArriv' => $lieuArriv,
-    'photo_1' => $photo_1,
-    'photo_2' => $photo_2,
-    'photo_3' => $photo_3,
-    'postDate' => $postDate,
-    'heureDep' => $heureDep,
-    'emailChauffeur' => $emailChauffeur
-));
+// Continue with the rest of your logic if no errors are set...
+if (!isset($_SESSION['notification'])) {
+    // Insert the journey into the database
+    $req = $bdd->prepare("
+        INSERT INTO journey (immat, marque, model, couleur, nbPlaces, 
+        dateTravel, lieuDep, lieuArriv, photo_1, photo_2, photo_3, postDate, heureDep, emailChauffeur) 
+        VALUES (:immat, :marque, :model, :couleur, :nbPlaces, :dateTravel, :lieuDep, :lieuArriv, :photo_1, :photo_2, :photo_3, :postDate, :heureDep, :emailChauffeur)
+    ");
+    $req->execute(array(
+        'immat' => $immat,
+        'marque' => $marque,
+        'model' => $model,
+        'couleur' => $couleur,
+        'nbPlaces' => $nbPlaces,
+        'dateTravel' => $dateTravel,
+        'lieuDep' => $lieuDep,
+        'lieuArriv' => $lieuArriv,
+        'photo_1' => $photo_1,
+        'photo_2' => $photo_2,
+        'photo_3' => $photo_3,
+        'postDate' => $postDate,
+        'heureDep' => $heureDep,
+        'emailChauffeur' => $emailChauffeur
+    ));
 
-// Retrieve the ID of the newly inserted journey
-$journeyId = $bdd->lastInsertId();
+    // Retrieve the ID of the newly inserted journey
+    $journeyId = $bdd->lastInsertId();
 
-// Redirect to goodPost.php with the journey ID and success message
-header('Location: index.php?page=goodPost&message=Votre+voyage+a+été+publié+avec+succès&id=' . $journeyId);
-ob_end_flush(); // Flush the output buffer
-exit; // Ensure the script stops execution after redirection
+    // Redirect to goodPost.php with the journey ID and success message
+    header('Location: index.php?page=goodPost&message=Votre+voyage+a+été+publié+avec+succès&id=' . $journeyId);
+    ob_end_flush(); // Flush the output buffer
+    exit(); // Ensure the script stops execution after redirection
+}
 ?>

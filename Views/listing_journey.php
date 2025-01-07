@@ -137,8 +137,8 @@
         <div class="row">
             <div class="col-xl-12">
                 <div class="hero-cap text-center">
-                    <h2>Trouvez le voyage de votre choix parmi tous les 
-                        <a href="#" style="color:#38B6FF"><?= $nombre ?> Voyages disponibles</a>
+                    <h2>Trouvez le voyage de votre choix parmi le(s) 
+                        <a href="#" style="color:#38B6FF"><?= $nombre ?> Voyage(s) disponible(s)</a>
                     </h2>
                 </div>
             </div>
@@ -207,14 +207,14 @@
                                                 <h4><span style="color:#38B6FF">De</span> <?= $resultat['lieuDep']."<span style='color:#38B6FF'> Pour</span> ".$resultat['lieuArriv']; ?></h4>
                                             </a>
                                             <ul>
-                                                <li><span>Depart prévu le</span> <span style="color:#38B6FF"><?= $resultat['dateTravel']; ?><span/></li>
+                                                <li><span>Départ prévu le</span> <span style="color:#38B6FF"><?= $resultat['dateTravel']; ?><span/></li>
                                                 <li><span> à </span><span style="color:#38B6FF"><?= $resultat['heureDep']; ?><span/></li>
                                             </ul>
                                         </div>
                                     </div>
                                     <div class="items-link items-link2 f-right">
-                                    <?="<a href=index.php?page=details&amp;id=$id>Voir les details</a>"; ?>
-                                        <span>Publié Il y a <?php  echo $retour['day']; ?> Jours</span>
+                                    <?="<a href=index.php?page=details&amp;id=$id>Voir les détails</a>"; ?>
+                                        <span>Publié Il y a <?php  echo $retour['day']; ?> Jour(s)</span>
                                     </div>
                                 </div><hr>
                                 <?php } ?> 

@@ -38,6 +38,7 @@
     margin-top: 20px;
     display: flex;
     justify-content: center;
+    gap: 10px; /* Add this line to create space between buttons */
 }
 
 .modal-buttons .btn {

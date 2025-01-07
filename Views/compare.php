@@ -27,7 +27,7 @@
                                         <br>
                                         <div class="row">
                                             <div class="col-3">
-                                                <label class="pay">Lieu de depart</label>
+                                                <label class="pay">Lieu de départ</label>
                                             </div>
                                             <div class="col-9">
                                                 <select class="list-dt" id="month" name="lieuDep">
