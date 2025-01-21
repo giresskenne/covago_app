@@ -12,15 +12,15 @@ services:
       - 9000
     environment:
       - DB_HOST=mysql
-      - DB_USER=root
-      - DB_PASSWORD=root
-      - DB_NAME=covago
+      - DB_USER=covago_user1
+      - DB_PASSWORD=WryJPUnZ8_tN
+      - DB_NAME=covago_db
     depends_on:
       - mysql
     entrypoint: ["sh", "-c", "while ! mysqladmin ping -h mysql --silent; do echo 'waiting for mysql'; sleep 2; done && php-fpm"]
 
   nginx:
-    image: nginx:latest
+    image: nginx:stable-bookworm-otel
     container_name: nginx
     ports:
       - "80:80"
@@ -32,11 +32,11 @@ services:
       - php-fpm
 
   mysql:
-    image: mysql:5.7
+    image: mysql:8.0
     container_name: mysql
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: covago
+      MYSQL_ROOT_PASSWORD: WryJPUnZ8_tN
+      MYSQL_DATABASE: covago_db
     volumes:
       - db_data:/var/lib/mysql
       - ./covago.sql:/docker-entrypoint-initdb.d/covago.sql

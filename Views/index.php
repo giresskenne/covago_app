@@ -2,6 +2,31 @@
 <html class="no-js" lang="zxx">
 <?php include('header.php'); ?>
 <link rel="stylesheet" href="assets/css/style_index.css">
+
+    <style>
+        .book-btn {
+        display: block;
+        width: 100%;
+        padding: 18px;
+        background: #38b6ff;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: background 0.3s;
+        }
+
+        .apply-process-area .process-cap h5 {
+            font-size: 14px;  /* Reduce the font size */
+            margin-bottom: 10px;  /* Optional: reduce space below the text */
+        }
+
+        .apply-process-area .process-cap p {
+            font-size: 12px;  /* Optional: reduce size of paragraph text */
+        }
+    </style>
 <main>
 
     <!-- slider Area Start-->
@@ -62,7 +87,7 @@
                     <div class="col-xl-10">
                         <!-- single-job-content -->
                         <?php 
-                            $bdd = new PDO('mysql:host=mysql;port=3306;dbname=covago', 'root', 'root');
+                            $bdd = new PDO('mysql:host=mysql;dbname=covago_db', 'covago_user1', 'WryJPUnZ8_tN');
                             $req = $bdd->prepare('SELECT * FROM journey ORDER BY id ASC LIMIT 6');
                             $req->execute(array());
                             $dateN = time();
@@ -73,10 +98,7 @@
                             $DiffDate = abs(($dateN) - ($datePost));
                             ?>
                                 <div class="single-job-items mb-30">
-                                    <div class="job-items">
-                                        <div class="company-img">
-                                            <a href="#"><img src="uploads/<?= $resultat['photo_1']; ?>" class="vehicle-image" alt="image du véhicule"></a>
-                                        </div>
+                                    <div class="job-items">                       
                                         <div class="job-tittle job-tittle2">
                                             <a href="#">
                                                 <h4><span style="color:#38B6FF">De</span> <?= $resultat['lieuDep']."<span style='color:#38B6FF'> Pour</span> ".$resultat['lieuArriv']; ?></h4>
@@ -85,6 +107,9 @@
                                                 <li><span>Départ prévu le</span> <span style="color:#38B6FF"><?= $resultat['dateTravel']; ?><span/></li>
                                                 <li><span> à </span><span style="color:#38B6FF"><?= $resultat['heureDep']; ?><span/></li>                                          
                                             </ul>
+                                        </div>
+                                        <div class="company-img">
+                                            <a href="#"><img src="uploads/<?= $resultat['photo_1']; ?>" class="vehicle-image" alt="image du véhicule" style="width: 35%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 15px;"></a>
                                         </div>
                                     </div>
                                     <div class="items-link items-link2 f-right">
@@ -121,7 +146,7 @@
                                 <span class="flaticon-search"></span>
                             </div>
                             <div class="process-cap">
-                               <h5>1. Créer un compte</h5></br></br>
+                               <h5><a href="index.php?page=registration">1. Créer un compte</a></h5></br></br>
                                <p></p>
                             </div>
                         </div>
@@ -132,7 +157,7 @@
                                 <span class="flaticon-curriculum-vitae"></span>
                             </div>
                             <div class="process-cap">
-                               <h5>2. Renseigner les informations concernant le voyage</h5>
+                               <h5><a href="index.php?page=voyages">2. Renseigner les informations concernant le voyage</a></h5>
                                <p></p>
                             </div>
                         </div>
@@ -143,56 +168,17 @@
                                 <span class="flaticon-tour"></span>
                             </div>
                             <div class="process-cap">
-                               <h5>3. Publier le voyage</h5></br></br>
+                               <h5><a href="index.php?page=publier">3. Publier le voyage</a></h5></br></br>
                                <p></p>
                             </div>
                         </div>
                     </div>
                 </div>
              </div>
-        </div>
+        </div><br><br>
         <!-- How  Apply Process End-->
         <!-- Testimonial Start -->
-        <div class="testimonial-area testimonial-padding">
-            <div class="container">
-                <!-- Testimonial contents -->
-                <div class="row d-flex justify-content-center">
-                    <div class="col-xl-8 col-lg-8 col-md-10">
-                        <div class="h1-testimonial-active dot-style">
-                            <!-- Single Testimonial -->
-                            <?php 
-                            //include('Models/db.php'); 
-                              $bdd=getBdd(); 
-                              $req=$bdd->prepare('SELECT * FROM comments');
-                              $req->execute(array());
-                              while ($results=$req->fetch()) {
-                                
-                                
-                                $message=$results['texte'];
-                                $dateComment=$results['dateComment'];
-                              ?>
-                            <div class="single-testimonial text-center">
-                                <!-- Testimonial Content -->
-                                <div class="testimonial-caption ">
-                                    <!-- founder -->
-                                    <div class="testimonial-founder  ">
-                                        <div class="founder-img mb-30">
-                                            <img src="assets/img/Sans titre2.jpg" alt="">
-                                            <span>Achille K.</span> 
-                                            <p><?= $dateComment; ?></p>
-                                        </div>
-                                    </div>
-                                    <div class="testimonial-top-cap">
-                                        <p>“<?= $message; ?>”</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <?php  } ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+      
         <!-- Testimonial End -->
          <!-- Support Company Start-->
         <div class="container">
@@ -209,10 +195,8 @@
                             </div>
                         </div>
                     </div>
-                   
-                    <div class="form-group mt-3">
-                        <button type="submit" class="button button-contactForm boxed-btn">Envoyer</button>
-                    </div>
+                    <button type="submit" class="btn book-btn">Envoyer</button><br><br>
+                
                 </form>
             </div>
             </div> 

@@ -162,6 +162,25 @@ if ($email) {
         color: white;
     }
 
+    .book-btn {
+    display: block;
+    width: 100%;
+    margin: 10px 0px 10px 0px;  /* top right bottom left */
+    padding: 18px;
+    background: #38b6ff;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+    .book-btn:hover {
+        background: #7ed957;
+    }
+
 </style>
 
 <main>
@@ -199,7 +218,7 @@ if ($email) {
             <div>
                 <?php 
                     // Database connection
-                    $bdd = new PDO('mysql:host=mysql;port=3306;dbname=covago', 'root', 'root');
+                    $bdd = new PDO('mysql:host=mysql;dbname=covago_db', 'covago_user1', 'WryJPUnZ8_tN');
 
                     // ============================
                     // Fetch user basic information
@@ -380,7 +399,7 @@ if ($email) {
                         <div class="items-link">
                             <!-- Modify Button -->
                             <!-- <div class="items-link"> -->
-                                <button type="button" class="btn btn-primary" onclick="openEditModal(<?= $booking['booking_id']; ?>, <?= $booking['seats_booked']; ?>)">
+                                <button type="button" class="btn book-btn" onclick="openEditModal(<?= $booking['booking_id']; ?>, <?= $booking['seats_booked']; ?>)">
                                     Modifier
                                 </button>
                             <!-- </div> -->
@@ -388,7 +407,7 @@ if ($email) {
                             <?php if ($cancellable) { ?>
                             <form action="index.php?page=cancel_booking" method="POST" style="display: inline;">
                                 <input type="hidden" name="booking_id" value="<?= $booking['booking_id']; ?>">
-                                <button type="submit" class="btn btn-danger">Annuler</button>
+                                <button type="submit" class="btn book-btn">Annuler</button>
                             </form>
                             <?php } else { ?>
                                 <span style="color: red;">Impossible d'annuler le voyage à 48h du départ</span>
@@ -441,7 +460,7 @@ if ($email) {
                         <div class="items-link">
                             <?php if ($driverJourney['passengers_booked'] == 0) { ?>
                                 <!-- Edit Button with Modal Trigger -->
-                                <button type="button" class="btn btn-primary" 
+                                <button type="button" class="btn book-btn" 
                                     onclick="openEditJourneyModal(
                                         <?= htmlspecialchars($driverJourney['journey_id'] ?? '', ENT_QUOTES, 'UTF-8'); ?>,
                                         <?= htmlspecialchars($driverJourney['nbPlaces'] ?? '', ENT_QUOTES, 'UTF-8'); ?>,
@@ -454,7 +473,7 @@ if ($email) {
                                 </button>
                                 <form action="index.php?page=cancel_journey" method="POST" style="display: inline;">
                                     <input type="hidden" name="journey_id" value="<?= htmlspecialchars($driverJourney['journey_id'], ENT_QUOTES, 'UTF-8'); ?>">
-                                    <button type="submit" class="btn btn-danger">Annuler</button>
+                                    <button type="submit" class="btn book-btn">Annuler</button>
                                 </form>
                             <?php } else { ?>
                                 <span style="color: red;">Modification impossible (des personnes ont déja reservé)</span>

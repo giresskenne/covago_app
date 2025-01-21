@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $_SESSION['notification'] = [
             'title' => 'Succès',
-            'message' => 'Votre Compte à été crée avec succès.',
+            'message' => 'Votre Compte a été crée avec succès.',
         ];
 
         // Redirect to the user's account home page

@@ -12,35 +12,42 @@ include('header.php');
     }
 
     .book-btn {
-    background: #38B6FF;
-    color: #fff;
-    padding: 20px 20px;
-    border-radius: 4px;
-    border: none;
+    display: block;
+    width: 100%;
+    padding: 18px;
+    background: #38b6ff;
+    color: white;
     font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
     cursor: pointer;
     transition: background 0.3s;
-    margin: 5px 0px 5px 0px; /* Add space between buttons */
-    width: 150px; /* Set a fixed width for both buttons */
-    text-align: center; /* Ensure text is centered */
-    /* height: 50px; */
-    }
+}
 
     .book-btn:hover {
         background: #7ed957;
     }
 
-    .number-input { 
-    width: 150px; /* Set the desired width */
-    height: 40px; /* Set the desired height */
-    }
+    .space-between {
+    margin-top: 10px;
+}
+
+    .number-input {
+    width: 100%;
+    padding: 5px 5px 5px 25px;
+    margin: 20px 0px 10px 0px;  /* top right bottom left */
+    border: 1px solid #7ed957;
+    border-radius: 25px;
+    font-size: 15px;
+}
 
 </style>
 <main style="background-color:whitesmoke">
     <div class="container">
         <div class="row">
             <div class="col-xl-12">
-                <div class="hero-cap text-center">
+                <div class="hero-cap text-center"><br><br>
                     <h4>Voici les détails concernant le voyage que vous avez sélectionné</h4>
                 </div>
             </div>
@@ -103,13 +110,13 @@ include('header.php');
                                 <h3 style="color:#38B6FF">Images du véhicule</h3>
                                 <div class="row">
                                     <div class="col-m-3">
-                                        <img src="uploads/<?= $resultat['photo_1']; ?>" class="vehicle-image" alt="1">
+                                        <img src="uploads/<?= $resultat['photo_1']; ?>" class="vehicle-image" alt="1" style="width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 15px;">
                                     </div>
                                     <div class="col-m-3">
-                                        <img src="uploads/<?= $resultat['photo_2']; ?>" class="vehicle-image" alt="2">
+                                        <img src="uploads/<?= $resultat['photo_2']; ?>" class="vehicle-image" alt="2" style="width: 50%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 15px;">
                                     </div>
                                     <div class="col-m-3">
-                                        <img src="uploads/<?= $resultat['photo_3']; ?>" class="vehicle-image" alt="3">
+                                        <img src="uploads/<?= $resultat['photo_3']; ?>" class="vehicle-image" alt="3" style="width: 50%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 15px;">
                                     </div>
                                 </div>
                             </div>
@@ -123,17 +130,19 @@ include('header.php');
                                 <input type="hidden" name="journey_id" value="<?= $id; ?>">
                                 <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
                                 <input type="number" name="seats_booked" min="1" max="<?= $resultat['nbPlaces']; ?>" placeholder="Nombre de places" required class="number-input" required>
-                                <button type="submit" class="btn book-btn">Réserver</button>
+                                
+                                <button class="btn book-btn" >Réserver</button>
+                                
                             </form>
                             <?php else: ?>
                                 <!-- Trigger the notification modal -->
-                                <button class="btn book-btn" onclick="openNotificationModal(
+                                <button class="btn book-btn" style="margin-top: 10px;" onclick="openNotificationModal(
                                     'Connexion requise',
                                     'Veuillez vous connecter ou créer un compte pour continuer.',
                                     'index.php?page=connexion', // Login link
                                     'index.php?page=registration', // Registration link
                                     false // Hide the OK button
-                                )">Réserver</button>
+                                )">Réserver</button>                              
                             <?php endif; ?>
                         <!-- End Booking Form -->
                     </div>

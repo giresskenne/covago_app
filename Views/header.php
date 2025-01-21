@@ -84,7 +84,7 @@
                     <div class="col-lg-3 col-md-2">
                         <!-- Logo -->
                         <div class="logo">
-                            <a href="#"><img src="assets/img/logo_fond_blanc.jpg" alt="" width=105 height=65></a>
+                            <a href="index.php"><img src="assets/img/logo_fond_blanc.jpg" alt="" width=105 height=65></a>
                         </div>
                     </div>
                     <div class="col-lg-9 col-md-9">

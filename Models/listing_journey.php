@@ -17,7 +17,7 @@ return $req;
 }
 function getNumberJob()
 {
-    $bdd = new PDO('mysql:host=mysql;port=3306;dbname=covago', 'root', 'root');
+    $bdd = new PDO('mysql:host=mysql;dbname=covago_db', 'covago_user1', 'WryJPUnZ8_tN');
     $req = $bdd->prepare('SELECT * FROM journey');
     $req->execute(array());
     $nombre = $req->rowCount();
@@ -26,7 +26,7 @@ function getNumberJob()
 
 function getNumberDriver()
 {
-    $bdd = new PDO('mysql:host=mysql;port=3306;dbname=covago', 'root', 'root');
+    $bdd = new PDO('mysql:host=mysql;dbname=covago_db', 'covago_user1', 'WryJPUnZ8_tN');
     $req = $bdd->prepare('SELECT * FROM users');
     $req->execute(array());
     $nombre = $req->rowCount();

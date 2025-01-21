@@ -1,19 +1,12 @@
--- Drop the database if it exists
-DROP DATABASE IF EXISTS `covago_db`;
-
--- Create a new database
-CREATE DATABASE `covago_db`;
-USE `covago_db`;
 
 -- --------------------------------------------------------
 -- Table: `users`
 -- Contains all user-related information (existing table, unchanged)
 -- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `email` VARCHAR(255) NOT NULL UNIQUE,
+  `email` VARCHAR(191) NOT NULL UNIQUE,
   `phoneNumber` INT(11) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
   `profile_photo` TEXT DEFAULT NULL, -- Optional profile photo URL
